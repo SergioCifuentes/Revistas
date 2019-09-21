@@ -5,6 +5,8 @@
  */
 package Usuarios;
 
+import javax.servlet.http.HttpServletRequest;
+
 /**
  *
  * @author sergio
@@ -12,4 +14,8 @@ package Usuarios;
 public class Persona {
     private String userName;
     private String password;
+        public Persona (HttpServletRequest request) {
+        userName = request.getParameter("cui");
+        password = request.getParameter("nombre");
+    }
 }

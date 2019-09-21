@@ -6,7 +6,7 @@
     </servlet>
     <servlet-mapping>
         <servlet-name>InicioSesion</servlet-name>
-        <url-pattern>/Inicio</url-pattern>
+        <url-pattern>/Iniciar</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

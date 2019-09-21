@@ -5,10 +5,16 @@
  */
 package Usuarios;
 
+import javax.servlet.http.HttpServletRequest;
+
 /**
  *
  * @author sergio
  */
 public class Usuario extends Persona{
-    
+    private Perfil perfil;
+
+    public Usuario(HttpServletRequest request) {
+        super(request);
+    }
 }

@@ -5,10 +5,16 @@
  */
 package Usuarios;
 
+import java.awt.Image;
+
 /**
  *
  * @author sergio
  */
 public class Perfil {
-    
+    private Image fotoPerfil;
+    private String hobbies;
+    private String temasDeInteres;
+    private String descripcion;
+    private String gastos;
 }

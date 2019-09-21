@@ -5,10 +5,16 @@
  */
 package Usuarios;
 
+import javax.servlet.http.HttpServletRequest;
+
 /**
  *
  * @author sergio
  */
 public class Suscriptor extends Usuario{
+    
+    public Suscriptor(HttpServletRequest request) {
+        super(request);
+    }
     
 }
