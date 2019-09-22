@@ -17,4 +17,7 @@ public class Usuario extends Persona{
     public Usuario(HttpServletRequest request) {
         super(request);
     }
+    public Usuario(String userName, String password) {
+        super(userName, password);
+    }
 }

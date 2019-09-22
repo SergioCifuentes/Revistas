@@ -19,7 +19,7 @@ public class Coneccion {
     protected  final static String USER = "root";
     protected  final static String PASSWORD = "danielito";
     protected  final static String STRING_CONNECTION = "jdbc:mysql://localhost:3306/paginaRevistas";
-    private  Connection coneccion=null;
+    protected  Connection coneccion=null;
         public Coneccion() {
         try {
             if (coneccion==null) {

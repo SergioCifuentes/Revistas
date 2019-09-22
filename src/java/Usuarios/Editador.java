@@ -16,5 +16,7 @@ public class Editador extends Usuario{
     public Editador(HttpServletRequest request) {
         super(request);
     }
-    
+    public Editador(String userName, String password) {
+        super(userName, password);
+    }
 }

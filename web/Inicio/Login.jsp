@@ -5,6 +5,7 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>  
 <!DOCTYPE html>
 <html>
     <head>
@@ -14,16 +15,37 @@
         <title>LogIn</title>
     </head>
     <body>
-        <h1 style="text-align:center;background-color: aquamarine">Iniciar Sesion </h1>
-        <div style="text-align:center;background-color:blueviolet " class="container">
-            <form action="/Revistas/Iniciar" method="post" >
-            UserName: <br>
-            <input type="text" name="userName" placeholder="Ingrese UserName" required/><br>
-            Password: <br>
-            <input type="password" name="password" placeholder="Ingrese Password" required/><br>
-            <input type="submit" class="btn btn-primary" value="Iniciar Sesion" >
-        </form>
-            <a href="SignUp.jsp"> SignUp</a>
+        <%@include file="cabeza.html"  %>
+        <br>
+        <div style="background-color:white " >
+            <div style="background-color: white;  width:30%;  " class="container">
+                <h2 style="text-align: center;color: #424040;width:70%">Iniciar Sesion</h2>
+                <form action="/Revistas/Iniciar" method="post" >
+                    UserName: <br>
+                    <input type="text" name="userName" id="user"placeholder="Ingrese UserName"
+                           required  
+                           <c:if test="${requestScope['errorPassword'] != null}">   
+                               value=${requestScope['errorPassword']}
+                           </c:if> /><br>
+                    <c:if test="${requestScope['errorUserName'] != null}">   
+                        <small style="color: red" class="form-text text-muted">Usuario No Existente</small>
+                    </c:if>
+                    Password: <br>
+                    <input type="password" name="pass" placeholder="Ingrese Password" required/><br>
+                    <c:if test="${requestScope['errorPassword'] != null}">   
+
+                        <small class="form-text text-muted" style="color:red;background-color: red">Password Incorecto </small>
+                    </c:if>
+                    <br>
+                    <input type="submit" class="btn btn-dark" value="Iniciar Sesion" ><a style="color: white">....  </a> <a href="SignUp.jsp">    SignUp</a>
+                </form >
+                <br>
+                <div style="text-align: center;width:65%">
+                    
+                </div>
+
+            </div>
         </div>
+
     </body>
 </html>

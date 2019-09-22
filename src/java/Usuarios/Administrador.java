@@ -16,5 +16,7 @@ public class Administrador extends Persona{
     public Administrador(HttpServletRequest request) {
         super(request);
     }
-    
+     public Administrador(String userName, String password) {
+        super(userName, password);
+    }
 }

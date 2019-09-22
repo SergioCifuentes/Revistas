@@ -16,5 +16,7 @@ public class Suscriptor extends Usuario{
     public Suscriptor(HttpServletRequest request) {
         super(request);
     }
-    
+    public Suscriptor(String userName, String password) {
+        super(userName, password);
+    }
 }
