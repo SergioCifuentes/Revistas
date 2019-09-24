@@ -12,6 +12,8 @@
         <title>JSP Page</title>
     </head>
     <body>
-        <h1>Editador</h1>
+        <%@include file="/Componentes/cabeceraUsuario.jsp"%>
+        <br>
+        <br>
     </body>
 </html>

@@ -20,4 +20,14 @@ public class Usuario extends Persona{
     public Usuario(String userName, String password) {
         super(userName, password);
     }
+
+    public Perfil getPerfil() {
+        return perfil;
+    }
+
+    public void setPerfil(Perfil perfil) {
+        this.perfil = perfil;
+    }
+    
+    
 }

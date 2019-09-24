@@ -15,8 +15,8 @@ public class Persona {
     private String userName;
     private String password;
         public Persona (HttpServletRequest request) {
-        userName = request.getParameter("cui");
-        password = request.getParameter("nombre");
+        userName = request.getParameter("userName");
+        password = request.getParameter("pass");
     }
 
     public Persona(String userName, String password) {

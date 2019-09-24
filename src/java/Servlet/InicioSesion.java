@@ -18,6 +18,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -33,6 +34,8 @@ public class InicioSesion extends HttpServlet {
         Controlador control = new Controlador();
         if (control.verificarUserName(userName)) {
             Persona usuario = control.obtenerUsuario(userName, password);
+            HttpSession nuevoSession = request.getSession(true);
+                nuevoSession.setAttribute("Usuario", usuario);
             if (usuario!=null) {
                 request.setAttribute("Usuario",usuario);
                 try {
@@ -42,7 +45,8 @@ public class InicioSesion extends HttpServlet {
                     try {
                         Editador editador= (Editador)usuario;
                         getServletContext().getRequestDispatcher("/AreaEditor/HomeEditador.jsp").forward(request, response);
-                    } catch (IOException | ServletException ex) {
+                    } catch (Exception ex) {
+                        System.out.println("Suscriptor");
                         getServletContext().getRequestDispatcher("/AreaSuscriptor/Home.jsp").forward(request, response);
                     }
                 }

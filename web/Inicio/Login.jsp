@@ -34,7 +34,7 @@
                     <input type="password" name="pass" placeholder="Ingrese Password" required/><br>
                     <c:if test="${requestScope['errorPassword'] != null}">   
 
-                        <small class="form-text text-muted" style="color:red;background-color: red">Password Incorecto </small>
+                        <small class="form-text text-muted" style="color:red">Password Incorecto </small>
                     </c:if>
                     <br>
                     <input type="submit" class="btn btn-dark" value="Iniciar Sesion" ><a style="color: white">....  </a> <a href="SignUp.jsp">    SignUp</a>

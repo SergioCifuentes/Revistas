@@ -3,7 +3,27 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/home/sergio/IPC2Proyectos/Revistas/web/index.html</file>
+            <file>file:/home/sergio/IPC2Proyectos/Revistas/src/java/Usuarios/Editador.java</file>
+            <file>file:/home/sergio/IPC2Proyectos/Revistas/src/java/ControladorDB/Coneccion.java</file>
+            <file>file:/home/sergio/IPC2Proyectos/Revistas/src/java/Usuarios/Usuario.java</file>
+            <file>file:/home/sergio/IPC2Proyectos/Revistas/src/java/Usuarios/Perfil.java</file>
+            <file>file:/home/sergio/IPC2Proyectos/Revistas/web/AreaSuscriptor/Home.jsp</file>
+            <file>file:/home/sergio/IPC2Proyectos/Revistas/src/java/JS/buscadorUsuario.js</file>
+            <file>file:/home/sergio/IPC2Proyectos/Revistas/web/WEB-INF/web.xml</file>
+            <file>file:/home/sergio/IPC2Proyectos/Revistas/web/Inicio/confirmarPass.js</file>
+            <file>file:/home/sergio/IPC2Proyectos/Revistas/web/Administracion/HomeAdmin.jsp</file>
+            <file>file:/home/sergio/IPC2Proyectos/Revistas/src/java/Servlet/SignUp.java</file>
+            <file>file:/home/sergio/IPC2Proyectos/Revistas/web/Inicio/cabeza.html</file>
+            <file>file:/home/sergio/IPC2Proyectos/Revistas/web/Inicio/Login.jsp</file>
+            <file>file:/home/sergio/IPC2Proyectos/Revistas/src/java/Usuarios/Administrador.java</file>
+            <file>file:/home/sergio/IPC2Proyectos/Revistas/src/java/Usuarios/Suscriptor.java</file>
+            <file>file:/home/sergio/IPC2Proyectos/Revistas/src/java/Servlet/InicioSesion.java</file>
+            <file>file:/home/sergio/IPC2Proyectos/Revistas/web/AreaEditor/HomeEditador.jsp</file>
+            <file>file:/home/sergio/IPC2Proyectos/Revistas/web/Inicio/SignUp.jsp</file>
+            <file>file:/home/sergio/IPC2Proyectos/Revistas/web/Inicio/IngresoInfo.jsp</file>
+            <file>file:/home/sergio/IPC2Proyectos/Revistas/src/java/Usuarios/Persona.java</file>
+            <file>file:/home/sergio/IPC2Proyectos/Revistas/web/META-INF/context.xml</file>
+            <file>file:/home/sergio/IPC2Proyectos/Revistas/src/java/ControladorDB/Controlador.java</file>
         </group>
     </open-files>
 </project-private>

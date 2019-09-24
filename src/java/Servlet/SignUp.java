@@ -14,6 +14,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -31,6 +32,8 @@ public class SignUp extends HttpServlet {
             dispatcher.forward(request, response);
             }else{
                 co.crearUsuario(nuevousuario.getUserName(),nuevousuario.getPassword());
+                HttpSession nuevoSession = request.getSession(true);
+                nuevoSession.setAttribute("Usuario", nuevousuario);
             request.setAttribute("usuarioCreado", nuevousuario);
             RequestDispatcher dispatcher = request.getRequestDispatcher("/Inicio/IngresoInfo.jsp");
             dispatcher.forward(request, response);
