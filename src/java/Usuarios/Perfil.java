@@ -25,7 +25,7 @@ public class Perfil {
     private String descripcion;
     private String gustos;
 public Perfil (HttpServletRequest request) throws FileNotFoundException {
-        this.fotoPredeterminado = new FileInputStream("/home/sergio/IPC2Proyectos/Revistas/Imagenes/dado.png");
+        this.fotoPredeterminado = new FileInputStream("/home/sergio/IPC2Proyectos/Revistas/Imagenes/abstract-user-flat-4.png");
         fotoPerfil=fotoPredeterminado;
         hobbies = request.getParameter("Hobbies");
         temasDeInteres = request.getParameter("Temas");

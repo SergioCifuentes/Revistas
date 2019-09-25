@@ -3,14 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Servlet;
+package Servlet.Redireccionar;
 
-import ControladorDB.Controlador;
-import Usuarios.Persona;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -19,10 +16,8 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author sergio
  */
-@WebServlet(name = "ControladorImagen", urlPatterns = {"/ControladorImagen"})
-public class ControladorImagen extends HttpServlet {
-    Controlador co = new Controlador();
-    
+public class RedireccionesEditador extends HttpServlet {
+
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -34,7 +29,19 @@ public class ControladorImagen extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
+        response.setContentType("text/html;charset=UTF-8");
+        try (PrintWriter out = response.getWriter()) {
+            /* TODO output your page here. You may use following sample code. */
+            out.println("<!DOCTYPE html>");
+            out.println("<html>");
+            out.println("<head>");
+            out.println("<title>Servlet RedireccionesEditador</title>");            
+            out.println("</head>");
+            out.println("<body>");
+            out.println("<h1>Servlet RedireccionesEditador at " + request.getContextPath() + "</h1>");
+            out.println("</body>");
+            out.println("</html>");
+        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -49,10 +56,7 @@ public class ControladorImagen extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String userName = ((Persona)request.getSession().getAttribute("Usuario")).getUserName();
-        System.out.println("xxxx"+userName);
-        co.obtnerPerfil(userName,response);
-        
+        processRequest(request, response);
     }
 
     /**
@@ -66,7 +70,16 @@ public class ControladorImagen extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        
+        if ("Perfil".equals(request.getParameter("Perfil"))) {
+            getServletContext().getRequestDispatcher("/AreaEditor/PerfilEditador.jsp").forward(request, response);
+            }
+        if ("Home".equals(request.getParameter("Home"))) {
+            getServletContext().getRequestDispatcher("/AreaEditor/HomeEditador.jsp").forward(request, response);
+            }  
+        
+            
+        
     }
 
     /**

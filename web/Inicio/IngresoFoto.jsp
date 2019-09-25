@@ -21,22 +21,28 @@
         %>
         <%@include file="cabeza.html"%>
         <br>
-        
+
         <div style="background-color: white;color: #424040;  width:95%;align-self: center;  " class="container">
             <div style="width:60%" class="container">
                 <h2 style="color: #424040;width:100%; align-self: center;">Ingrese Una Imagen Que Lo Identifique </h2>
             </div>
+            <br>
             <div style="width:30%" class="container">
-                <img src="ControladorImagen?userName=${nueva.getUserName()}" width="250" height="330" class="rounded-circle">
+                <img src="ControladorImagen?userName=${nueva.getUserName()}" width="250" height="300" class="rounded-circle">
                 <br>
                 <br>
 
                 <div style="width:95%" class="container">
                     <form method="POST" action="ForwardSuscriptor" enctype="multipart/form-data">
-                        <input type="file"  class="btn btn-light"name="cambiar"id="cambiar"value="Cambiar Foto" accept=".jpg,.png" ><a style="color: white">..</a> 
+                        <div class="input-group mb-3">
+                            <div class="custom-file">
+                                <input type="file" class="custom-file-input" name="cambiar"id="cambiar"accept=".jpg,.png" aria-describedby="inputGroupFileAddon01">
+                                <label class="custom-file-label" for="inputGroupFile01">Choose file</label>
+                            </div>
+                        </div>
                         <br>
-                        <div style="width: 50%" class="container">
-                        <input  type="submit"class="btn btn-dark"name="Siguiente" value="Siguiente" >
+                        <div style="width: 65%" class="container">
+                            <input  type="submit"class="btn btn-dark"name="Siguiente" value="Siguiente" >
                         </div>
                     </form>
                 </div>
