@@ -9,6 +9,7 @@ import ControladorDB.Controlador;
 import Usuarios.Administrador;
 import Usuarios.Editador;
 import Usuarios.Persona;
+import Usuarios.Suscriptor;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.logging.Level;
@@ -44,9 +45,10 @@ public class InicioSesion extends HttpServlet {
                 } catch (Exception e) {
                     try {
                         Editador editador= (Editador)usuario;
+                        
                         getServletContext().getRequestDispatcher("/AreaEditor/HomeEditador.jsp").forward(request, response);
                     } catch (Exception ex) {
-                        System.out.println("Suscriptor");
+                        Suscriptor suscriptor= (Suscriptor)usuario;
                         getServletContext().getRequestDispatcher("/AreaSuscriptor/Home.jsp").forward(request, response);
                     }
                 }

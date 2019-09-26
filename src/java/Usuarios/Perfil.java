@@ -32,7 +32,12 @@ public Perfil (HttpServletRequest request) throws FileNotFoundException {
         descripcion = request.getParameter("Descripcion");
         gustos = request.getParameter("Gustos");
     }
-
+public void AcualizarInfo(HttpServletRequest request) {
+        hobbies = request.getParameter("Hobbies");
+        temasDeInteres = request.getParameter("Temas");
+        descripcion = request.getParameter("Descripcion");
+        gustos = request.getParameter("Gustos");
+    }
     public void setFotoPerfil(InputStream fotoPerfil) {
         this.fotoPerfil = fotoPerfil;
     }

@@ -33,6 +33,10 @@ public class Controlador extends Coneccion {
     private final static String ST_CREAR_USUARIO = "INSERT INTO Persona VALUES(?,?,AES_ENCRYPT(?,'llave'))";
     private final static String ST_CREAR_PERFIL = "INSERT INTO Perfil VALUES(?,?,?,?,?,?)";
     private final static String ST_ACTUALIZAR_FOTO = "UPDATE Perfil SET Foto = ? WHERE UserName=?";
+    private final static String ST_ACTUALIZAR_DESCRIPCION = "UPDATE Perfil SET Descripcion = ? WHERE UserName=?";
+    private final static String ST_ACTUALIZAR_HOBBIES = "UPDATE Perfil SET Hobbies = ? WHERE UserName=?";
+    private final static String ST_ACTUALIZAR_TEMAS = "UPDATE Perfil SET TemasDeInteres = ? WHERE UserName=?";
+    private final static String ST_ACTUALIZAR_GUSTOS = "UPDATE Perfil SET Gustos = ? WHERE UserName=?";
 
     public boolean verificarUserName(String userName) {
         PreparedStatement declaracionPreparada = null;
@@ -109,11 +113,12 @@ public class Controlador extends Coneccion {
                     case 2:
                         Editador nuevo = new Editador(userName, password);
                         nuevo.setPerfil(obtnerPerfil(userName));
+                        
                         return nuevo ;
                     case 3:
                         Suscriptor nuevoS = new  Suscriptor(userName, password);
                         nuevoS.setPerfil(obtnerPerfil(userName));
-                        return new Suscriptor(userName, password);
+                        return nuevoS;
                 }
             }
         } catch (SQLException ex) {
@@ -179,6 +184,31 @@ public void actualizarFoto(String userName,InputStream foto) {
             }
             PreparedStatement declaracionPreparada2 = getConeccion().prepareStatement(ST_ACTUALIZAR_FOTO);
             declaracionPreparada2.setBlob(1, foto);
+            declaracionPreparada2.setString(2, userName);            
+            declaracionPreparada2.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(Controlador.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+public void actualizarPerfil(String userName,Perfil perfil) {
+        try {
+            if (getConeccion() == null) {
+                setConeccion();
+            }
+            PreparedStatement declaracionPreparada2 = getConeccion().prepareStatement(ST_ACTUALIZAR_DESCRIPCION);
+            declaracionPreparada2.setString(1, perfil.getDescripcion());
+            declaracionPreparada2.setString(2, userName);            
+            declaracionPreparada2.executeUpdate();
+            declaracionPreparada2 = getConeccion().prepareStatement(ST_ACTUALIZAR_HOBBIES);
+            declaracionPreparada2.setString(1, perfil.getHobbies());
+            declaracionPreparada2.setString(2, userName);            
+            declaracionPreparada2.executeUpdate();
+            declaracionPreparada2 = getConeccion().prepareStatement(ST_ACTUALIZAR_TEMAS);
+            declaracionPreparada2.setString(1, perfil.getTemasDeInteres());
+            declaracionPreparada2.setString(2, userName);            
+            declaracionPreparada2.executeUpdate();
+            declaracionPreparada2 = getConeccion().prepareStatement(ST_ACTUALIZAR_GUSTOS);
+            declaracionPreparada2.setString(1, perfil.getGustos());
             declaracionPreparada2.setString(2, userName);            
             declaracionPreparada2.executeUpdate();
         } catch (SQLException ex) {

@@ -5,18 +5,23 @@
  */
 package Servlet.Redireccionar;
 
+import ControladorDB.Controlador;
+import Usuarios.Perfil;
+import Usuarios.Suscriptor;
+import Usuarios.Usuario;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
  * @author sergio
  */
-public class RedireccionesEditador extends HttpServlet {
+public class ActualizarPerfil extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -35,10 +40,10 @@ public class RedireccionesEditador extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet RedireccionesEditador</title>");            
+            out.println("<title>Servlet ActualizarPerfil</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet RedireccionesEditador at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet ActualizarPerfil at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -70,18 +75,19 @@ public class RedireccionesEditador extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
-        if ("Perfil".equals(request.getParameter("Perfil"))) {
+        System.out.println("pppp"+request.getParameter("Cancelar"));
+        if ("Cancelar".equals(request.getParameter("Cancelar"))) {
             getServletContext().getRequestDispatcher("/AreaEditor/PerfilEditador.jsp").forward(request, response);
             }
-        if ("Home".equals(request.getParameter("Home"))) {
-            getServletContext().getRequestDispatcher("/AreaEditor/HomeEditador.jsp").forward(request, response);
-            }  
-        if ("Editar Informacion".equals(request.getParameter("EditarInfo"))) {
-            getServletContext().getRequestDispatcher("/AreaEditor/EditarInfo.jsp").forward(request, response);
-            }
-            
-        
+        if ("Guardar".equals(request.getParameter("Guardar"))) {
+            Perfil nuevoPerfil = new Perfil(request);
+        Controlador co = new Controlador();
+        HttpSession misession= (HttpSession) request.getSession();
+        Usuario nueva=(Usuario)misession.getAttribute("Usuario");
+        nueva.getPerfil().AcualizarInfo(request);
+        co.actualizarPerfil(nueva.getUserName(),nuevoPerfil);
+            getServletContext().getRequestDispatcher("/AreaEditor/PerfilEditador.jsp").forward(request, response);
+            } 
     }
 
     /**

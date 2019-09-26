@@ -37,7 +37,7 @@
                         <small class="form-text text-muted" style="color:red">Password Incorecto </small>
                     </c:if>
                     <br>
-                    <input type="submit" class="btn btn-dark" value="Iniciar Sesion" ><a style="color: white">....  </a> <a href="SignUp.jsp">    SignUp</a>
+                    <input type="submit" class="btn btn-dark" value="Iniciar Sesion" ><a style="color: white">....  </a> <a href="/Revistas/Inicio/SignUp.jsp">    SignUp</a>
                 </form >
                 <br>
                 <div style="text-align: center;width:65%">

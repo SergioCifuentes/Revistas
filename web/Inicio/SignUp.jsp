@@ -62,6 +62,6 @@
         <footer> 
             Ya tienes cuenta... <a href="Login.jsp"> LogIn</a>
         </footer>
-        <script type="text/javascript" src="./confirmarPass.js"></script>
+        <script type="text/javascript" src="/Revistas/Inicio/confirmarPass.js"></script>
     </body>
 </html>

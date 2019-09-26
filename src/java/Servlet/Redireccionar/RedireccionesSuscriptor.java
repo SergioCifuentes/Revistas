@@ -16,7 +16,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author sergio
  */
-public class RedireccionesEditador extends HttpServlet {
+public class RedireccionesSuscriptor extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -35,10 +35,10 @@ public class RedireccionesEditador extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet RedireccionesEditador</title>");            
+            out.println("<title>Servlet RedireccionesSuscriptor</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet RedireccionesEditador at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet RedireccionesSuscriptor at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -70,18 +70,15 @@ public class RedireccionesEditador extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
-        if ("Perfil".equals(request.getParameter("Perfil"))) {
-            getServletContext().getRequestDispatcher("/AreaEditor/PerfilEditador.jsp").forward(request, response);
+        if ("Mi Perfil".equals(request.getParameter("Mi Perfil"))) {
+            getServletContext().getRequestDispatcher("/AreaSuscriptor/Perfil.jsp").forward(request, response);
             }
         if ("Home".equals(request.getParameter("Home"))) {
             getServletContext().getRequestDispatcher("/AreaEditor/HomeEditador.jsp").forward(request, response);
-            }  
+            } 
         if ("Editar Informacion".equals(request.getParameter("EditarInfo"))) {
-            getServletContext().getRequestDispatcher("/AreaEditor/EditarInfo.jsp").forward(request, response);
+            getServletContext().getRequestDispatcher("/AreaSuscriptor/EditarInfo.jsp").forward(request, response);
             }
-            
-        
     }
 
     /**

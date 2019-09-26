@@ -8,6 +8,14 @@
         <servlet-name>RedireccionesEditador</servlet-name>
         <servlet-class>Servlet.Redireccionar.RedireccionesEditador</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ActualizarPerfil</servlet-name>
+        <servlet-class>Servlet.Redireccionar.ActualizarPerfil</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>RedireccionesSuscriptor</servlet-name>
+        <servlet-class>Servlet.Redireccionar.RedireccionesSuscriptor</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>InicioSesion</servlet-name>
         <url-pattern>/Iniciar</url-pattern>
@@ -15,6 +23,14 @@
     <servlet-mapping>
         <servlet-name>RedireccionesEditador</servlet-name>
         <url-pattern>/RedireccionesEditador</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ActualizarPerfil</servlet-name>
+        <url-pattern>/ActualizarPerfil</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>RedireccionesSuscriptor</servlet-name>
+        <url-pattern>/RedireccionesSuscriptor</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

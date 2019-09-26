@@ -28,7 +28,7 @@ public class SignUp extends HttpServlet {
         Controlador co = new Controlador();
         if (!co.verificarUserName(request.getParameter("userName"))) {
             if (request.getParameter("pass").length()<8 || !request.getParameter("pass").equals(request.getParameter("confirmacion")) ) {
-                RequestDispatcher dispatcher = request.getRequestDispatcher("/Inicio/SignUp.jsp");
+                RequestDispatcher dispatcher = request.getRequestDispatcher("/Revistas/Inicio/SignUp.jsp");
             dispatcher.forward(request, response);
             }else{
                 co.crearUsuario(nuevousuario.getUserName(),nuevousuario.getPassword());
