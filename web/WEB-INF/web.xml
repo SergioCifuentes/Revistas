@@ -16,6 +16,14 @@
         <servlet-name>RedireccionesSuscriptor</servlet-name>
         <servlet-class>Servlet.Redireccionar.RedireccionesSuscriptor</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>CreacionRevista</servlet-name>
+        <servlet-class>Servlet.CreacionRevista</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>SolicitarPublicacion</servlet-name>
+        <servlet-class>Servlet.SolicitarPublicacion</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>InicioSesion</servlet-name>
         <url-pattern>/Iniciar</url-pattern>
@@ -31,6 +39,14 @@
     <servlet-mapping>
         <servlet-name>RedireccionesSuscriptor</servlet-name>
         <url-pattern>/RedireccionesSuscriptor</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CreacionRevista</servlet-name>
+        <url-pattern>/CreacionRevista</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SolicitarPublicacion</servlet-name>
+        <url-pattern>/solicitarPublicacion</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

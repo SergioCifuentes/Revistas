@@ -36,6 +36,10 @@ CREATE TABLE Revista (
     CostoPorSuscripcion FLOAT NOT NULL,
     UserName VARCHAR(15) NOT NULL,
     NombreCategoria VARCHAR(15) NOT NULL,
+    Estado   INT NOT NULL 
+    Nombre   VARCHAR(15) NOT NULL 
+    Comentarios  BOOLEAN  NOT NULL
+    Suscripciones BOOLEAN NOT NULL
     CONSTRAINT PK_CODIGO PRIMARY KEY(Codigo),
     CONSTRAINT FK_PERSONA_USER FOREIGN KEY(UserName)
 	REFERENCES Persona(UserName)

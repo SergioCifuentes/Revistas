@@ -19,17 +19,18 @@
         <br>
         <div style="background-color:white " >
             <div style="background-color: white;  width:30%;  " class="container">
-                <h2 style="text-align: center;color: #424040;width:70%">Iniciar Sesion</h2>
+                <h2 style="text-align: center;color: #424040;width:60%">Iniciar Sesion</h2>
                 <form action="/Revistas/Iniciar" method="post" >
                     UserName: <br>
                     <input type="text" name="userName" id="user"placeholder="Ingrese UserName"
                            required  
                            <c:if test="${requestScope['errorPassword'] != null}">   
                                value=${requestScope['errorPassword']}
-                           </c:if> /><br>
+                           </c:if> /><br><br>
                     <c:if test="${requestScope['errorUserName'] != null}">   
                         <small style="color: red" class="form-text text-muted">Usuario No Existente</small>
                     </c:if>
+                        
                     Password: <br>
                     <input type="password" name="pass" placeholder="Ingrese Password" required/><br>
                     <c:if test="${requestScope['errorPassword'] != null}">   

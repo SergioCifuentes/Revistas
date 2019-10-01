@@ -4,26 +4,58 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/home/sergio/IPC2Proyectos/Revistas/src/java/Usuarios/Editador.java</file>
-            <file>file:/home/sergio/IPC2Proyectos/Revistas/src/java/ControladorDB/Coneccion.java</file>
-            <file>file:/home/sergio/IPC2Proyectos/Revistas/src/java/Usuarios/Usuario.java</file>
-            <file>file:/home/sergio/IPC2Proyectos/Revistas/src/java/Usuarios/Perfil.java</file>
+            <file>file:/home/sergio/IPC2Proyectos/Revistas/src/java/Revista/Categoria.java</file>
             <file>file:/home/sergio/IPC2Proyectos/Revistas/web/AreaSuscriptor/Home.jsp</file>
-            <file>file:/home/sergio/IPC2Proyectos/Revistas/src/java/JS/buscadorUsuario.js</file>
-            <file>file:/home/sergio/IPC2Proyectos/Revistas/web/WEB-INF/web.xml</file>
-            <file>file:/home/sergio/IPC2Proyectos/Revistas/web/Inicio/confirmarPass.js</file>
-            <file>file:/home/sergio/IPC2Proyectos/Revistas/web/Administracion/HomeAdmin.jsp</file>
-            <file>file:/home/sergio/IPC2Proyectos/Revistas/src/java/Servlet/SignUp.java</file>
+            <file>file:/home/sergio/IPC2Proyectos/Revistas/web/AreaEditor/EditarInfo.jsp</file>
+            <file>file:/home/sergio/IPC2Proyectos/Revistas/src/java/Usuarios/Administrador.java</file>
+            <file>file:/home/sergio/IPC2Proyectos/Revistas/src/java/Revista/Etiqueta.java</file>
+            <file>file:/home/sergio/IPC2Proyectos/Revistas/src/java/Servlet/Redireccionar/ActualizarPerfil.java</file>
+            <file>file:/home/sergio/IPC2Proyectos/Revistas/web/AreaEditor/Publicacion.jsp</file>
+            <file>file:/home/sergio/IPC2Proyectos/Revistas/src/java/ControladorDB/Coneccion.java</file>
+            <file>file:/home/sergio/IPC2Proyectos/Revistas/src/java/Revista/Revista.java</file>
+            <file>file:/home/sergio/IPC2Proyectos/Revistas/src/java/Usuarios/Perfil.java</file>
+            <file>file:/home/sergio/IPC2Proyectos/Revistas/web/AreaEditor/manejadorCheckbox.js</file>
+            <file>file:/home/sergio/IPC2Proyectos/Revistas/web/AreaEditor/ComponentesMenu/MenuPublicar.html</file>
+            <file>file:/home/sergio/IPC2Proyectos/Revistas/src/java/Servlet/CreacionRevista.java</file>
+            <file>file:/home/sergio/IPC2Proyectos/Revistas/src/java/Servlet/Redireccionar/ForwardSuscriptor.java</file>
+            <file>file:/home/sergio/IPC2Proyectos/Revistas/web/AreaEditor/EleccionArchivo.jsp</file>
+            <file>file:/home/sergio/IPC2Proyectos/Revistas/src/java/Revista/Edicion.java</file>
+            <file>file:/home/sergio/IPC2Proyectos/Revistas/web/AreaEditor/verificarCambio.js</file>
+            <file>file:/home/sergio/IPC2Proyectos/Revistas/web/AreaEditor/PerfilEditador.jsp</file>
+            <file>file:/home/sergio/IPC2Proyectos/Revistas/web/Componentes/MoldePerfil.jsp</file>
             <file>file:/home/sergio/IPC2Proyectos/Revistas/web/Inicio/cabeza.html</file>
             <file>file:/home/sergio/IPC2Proyectos/Revistas/web/Inicio/Login.jsp</file>
-            <file>file:/home/sergio/IPC2Proyectos/Revistas/src/java/Usuarios/Administrador.java</file>
             <file>file:/home/sergio/IPC2Proyectos/Revistas/src/java/Usuarios/Suscriptor.java</file>
+            <file>file:/home/sergio/IPC2Proyectos/Revistas/web/Inicio/IngresoInfo.jsp</file>
+            <file>file:/home/sergio/IPC2Proyectos/Revistas/src/java/ControladorDB/Controlador.java</file>
+            <file>file:/home/sergio/IPC2Proyectos/Revistas/web/AreaSuscriptor/ComponentesSuscriptor/MenuPerfil.html</file>
+            <file>file:/home/sergio/IPC2Proyectos/Revistas/web/Inicio/IngresoFoto.jsp</file>
+            <file>file:/home/sergio/IPC2Proyectos/Revistas/src/java/Servlet/GuardarInfo.java</file>
+            <file>file:/home/sergio/IPC2Proyectos/Revistas/src/java/Revista/Costos.java</file>
+            <file>file:/home/sergio/IPC2Proyectos/Revistas/web/AreaSuscriptor/ComponentesSuscriptor/MenuMisRevistas.html</file>
+            <file>file:/home/sergio/IPC2Proyectos/Revistas/web/Inicio/confirmarPass.js</file>
+            <file>file:/home/sergio/IPC2Proyectos/Revistas/src/java/Servlet/ControladorImagen.java</file>
+            <file>file:/home/sergio/IPC2Proyectos/Revistas/src/java/Revista/GeneradorDeCodigos.java</file>
+            <file>file:/home/sergio/IPC2Proyectos/Revistas/src/java/Servlet/SignUp.java</file>
+            <file>file:/home/sergio/IPC2Proyectos/Revistas/web/AreaEditor/ComponentesMenu/MenuPerfil.html</file>
             <file>file:/home/sergio/IPC2Proyectos/Revistas/src/java/Servlet/InicioSesion.java</file>
             <file>file:/home/sergio/IPC2Proyectos/Revistas/web/AreaEditor/HomeEditador.jsp</file>
-            <file>file:/home/sergio/IPC2Proyectos/Revistas/web/Inicio/SignUp.jsp</file>
-            <file>file:/home/sergio/IPC2Proyectos/Revistas/web/Inicio/IngresoInfo.jsp</file>
             <file>file:/home/sergio/IPC2Proyectos/Revistas/src/java/Usuarios/Persona.java</file>
             <file>file:/home/sergio/IPC2Proyectos/Revistas/web/META-INF/context.xml</file>
-            <file>file:/home/sergio/IPC2Proyectos/Revistas/src/java/ControladorDB/Controlador.java</file>
+            <file>file:/home/sergio/IPC2Proyectos/Revistas/src/java/Servlet/Redireccionar/RedireccionesEditador.java</file>
+            <file>file:/home/sergio/IPC2Proyectos/Revistas/src/java/Servlet/Redireccionar/RedireccionesSuscriptor.java</file>
+            <file>file:/home/sergio/IPC2Proyectos/Revistas/web/Componentes/cabeceraUsuario.jsp</file>
+            <file>file:/home/sergio/IPC2Proyectos/Revistas/web/AreaSuscriptor/Perfil.jsp</file>
+            <file>file:/home/sergio/IPC2Proyectos/Revistas/src/java/Usuarios/Usuario.java</file>
+            <file>file:/home/sergio/IPC2Proyectos/Revistas/src/java/JS/buscadorUsuario.js</file>
+            <file>file:/home/sergio/IPC2Proyectos/Revistas/web/WEB-INF/web.xml</file>
+            <file>file:/home/sergio/IPC2Proyectos/Revistas/web/Inicio/verificarLongitud.js</file>
+            <file>file:/home/sergio/IPC2Proyectos/Revistas/web/AreaEditor/ComponentesMenu/MenuHome.html</file>
+            <file>file:/home/sergio/IPC2Proyectos/Revistas/web/AreaSuscriptor/EditarInfo.jsp</file>
+            <file>file:/home/sergio/IPC2Proyectos/Revistas/src/java/Servlet/Redireccionar/LogOut.java</file>
+            <file>file:/home/sergio/IPC2Proyectos/Revistas/web/Administracion/HomeAdmin.jsp</file>
+            <file>file:/home/sergio/IPC2Proyectos/Revistas/web/Inicio/SignUp.jsp</file>
+            <file>file:/home/sergio/IPC2Proyectos/Revistas/web/Componentes/cabecera.jsp</file>
         </group>
     </open-files>
 </project-private>

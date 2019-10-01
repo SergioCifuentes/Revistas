@@ -73,8 +73,8 @@ public class RedireccionesSuscriptor extends HttpServlet {
         if ("Mi Perfil".equals(request.getParameter("Mi Perfil"))) {
             getServletContext().getRequestDispatcher("/AreaSuscriptor/Perfil.jsp").forward(request, response);
             }
-        if ("Home".equals(request.getParameter("Home"))) {
-            getServletContext().getRequestDispatcher("/AreaEditor/HomeEditador.jsp").forward(request, response);
+        if ("Mis Revistas".equals(request.getParameter("Mis Revistas"))) {
+            getServletContext().getRequestDispatcher("/AreaSuscriptor/Home.jsp").forward(request, response);
             } 
         if ("Editar Informacion".equals(request.getParameter("EditarInfo"))) {
             getServletContext().getRequestDispatcher("/AreaSuscriptor/EditarInfo.jsp").forward(request, response);
