@@ -16,7 +16,7 @@ CREATE TABLE Persona (
 );
 CREATE TABLE Perfil (
     UserName VARCHAR(15) NOT NULL,
-    Foto BLOB,
+    Foto LONGBLOB,
     Descripcion VARCHAR(40) NOT NULL,
     TemasDeInteres VARCHAR(40) NOT NULL,
     Hobbies VARCHAR(40) NOT NULL,

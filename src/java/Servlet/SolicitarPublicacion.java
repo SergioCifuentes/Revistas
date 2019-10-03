@@ -12,7 +12,10 @@ import Usuarios.Usuario;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintWriter;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.Month;
+import javafx.util.converter.LocalDateTimeStringConverter;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.http.HttpServlet;
@@ -44,7 +47,7 @@ public class SolicitarPublicacion extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet SolicitarPublicacion</title>");            
+            out.println("<title>Servlet SolicitarPublicacion</title>");
             out.println("</head>");
             out.println("<body>");
             out.println("<h1>Servlet SolicitarPublicacion at " + request.getContextPath() + "</h1>");
@@ -79,19 +82,20 @@ public class SolicitarPublicacion extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-            Part part = request.getPart("edicion");
-            if (!"".equals(part.getSubmittedFileName())) {
-                
-                InputStream input = part.getInputStream();
-            Revista revista= (Revista) request.getSession().getAttribute("Revista");
-                Edicion ed = new Edicion(request.getParameter("nombreEd"),1,input,revista, LocalDateTime.now());
-                System.out.println("nom"+ed.getNombre());
-                ControladorDB.Controlador co =new Controlador();
-                co.publicarNuevaRevista(revista, ed);
+        Part part = request.getPart("edicion");
+        LocalDate date = LocalDate.parse(request.getParameter("fecha"));
+        LocalDateTime fecha = LocalDateTime.of(date.getYear(), date.getMonthValue(),date.getDayOfMonth(), 0, 0, 0);
+        if (!"".equals(part.getSubmittedFileName())) {
             
+            InputStream input = part.getInputStream();
+            Revista revista = (Revista) request.getSession().getAttribute("Revista");
+            Edicion ed = new Edicion(request.getParameter("nombreEd"), 1, input, revista,fecha);
+
+            ControladorDB.Controlador co = new Controlador();
+            co.publicarNuevaRevista(revista, ed);
             
-             
         }
+        getServletContext().getRequestDispatcher("/AreaEditor/RevistasEd.jsp").forward(request, response);
     }
 
     /**

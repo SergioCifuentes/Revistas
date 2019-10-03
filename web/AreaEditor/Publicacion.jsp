@@ -38,7 +38,7 @@
                             Nueva Edicion
                         </label>
                     </div>
-                    
+
 
                     <div id="EspacioEdicion" hidden="true" style="width: 80%" class="container">
                         <div class="dropdown">
@@ -63,20 +63,22 @@
                             Nueva Revista
                         </label>
                     </div>
-                    
+
                     <br>
                     <div class="container"id="EspacioRevista" hidden="true" style="width: 85%">
-                        <a id="codigo"> Codigo: <%=GeneradorDeCodigos.generarCodigoRevista()%> </a><br>
-                        <a id="nombre"> Autor: <%=persona.getUserName()%> </a>
+                        <a id="codigo"> <a style="color: tomato">Codigo: </a><%=GeneradorDeCodigos.generarCodigoRevista()%> </a><br>
+                        <a id="nombre"> <a style="color: tomato">Autor: </a><%=persona.getUserName()%> </a>
                         <br><br>
                         Nombre: <input name="nombre" id="nombre"type="text" placeholder="Ingrese Nombre"><br><br>
-                        Cuota De Suscripcion <input id="Cuota" type="number" name="Cuota" placeholder="0" width="10px" min="0" step="0.01">
-
+                        Cuota De Suscripcion: <input id="Cuota" type="number" name="Cuota" placeholder="0" width="10px" min="0" step="0.01"><br>
+                        <label for="exampleFormControlTextarea1">Descripcion:</label>
+                        <textarea class="form-control" id="Descripcion"name="Descripcion" rows="1"></textarea>
+                        <br>
                     </div>
                 </div>
 
 
-                <br>
+                
                 <br>
                 <br>
             </div>

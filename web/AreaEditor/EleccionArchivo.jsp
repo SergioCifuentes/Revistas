@@ -30,22 +30,27 @@
         </div>
         <br>
         <br>
-        <br>
         <div class="container" style="width: 90%">
-            <div class="container" style="text-align: center"> 
-                <a style="text-align: center;font-size: 22px;">&nbsp;&nbsp;&nbsp;&nbsp;Revista: <%=revista.getCodigo()%>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Autor: <%=revista.getAutor().getUserName()%>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Nombre: <%=revista.getNombre()%></a>
+            <div class="container" style="text-align: center;font-size: 22px"> 
+                <a style="text-align: center;font-size: 22px;">&nbsp;&nbsp;&nbsp;&nbsp;<a style="color: tomato;font-size: 22px;">Revista:</a> <%=revista.getCodigo()%>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <a style="color: tomato;font-size: 22px;"> Autor:</a> <%=revista.getAutor().getUserName()%>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <a style="color: tomato;font-size: 22px;">Nombre: </a> <%=revista.getNombre()%></a>
             </div>
             <br>
             <br>
-            <br>
-            <form method="post" action="solicitarPublicacion" enctype="multipart/form-data">
-                <%request.getSession().setAttribute("Revista",revista);%>
-                Nombre de la Edicion:   <input type="text" name="nombreEd" placeholder="Ingrese el Nombre" required/>
+
+            <form method="post" style="border:4px solid black" action="solicitarPublicacion" enctype="multipart/form-data">
+                <%request.getSession().setAttribute("Revista", revista);%>
                 <br>
+                <div class="container" style="width: 90%;text-align: right">
+                    Fecha Publicacion:&nbsp;&nbsp;&nbsp;<input type="date" value="fecha" name="fecha" required="true">
+                </div>
                 <br>
-                <div class="container" style="width: 60%;">
-                    <div class="input-group mb-3" >
+                <div class="container" style="width: 60%;">                    
+                    <div class="input-group mb-3"  >
+                        Nombre de la Edicion: &nbsp;&nbsp;&nbsp; <input type="text" name="nombreEd" placeholder="Ingrese el Nombre" required/> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                         <div class="custom-file">
+
                             <input type="file" class="custom-file-input" name="edicion"id="edicion"accept=".pdf" aria-describedby="inputGroupFileAddon01">
                             <label class="custom-file-label" for="inputGroupFile01" >Archivo(.pdf)</label>
                         </div>
@@ -77,6 +82,7 @@
                         </div>
                     </div>
                 </div>
+                <br>
         </div>
 
         <br>
@@ -84,10 +90,11 @@
         <div class="container" style="text-align: center">
             <input type="submit" class="btn btn-success"name="Siguiente" id="Siguiente" value="Siguiente">
         </div>
+        
     </form>
-            <br>
-            <br>
-            <br>
+    <br>
+    <br>
+    <br>
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script> 

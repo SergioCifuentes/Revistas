@@ -3,10 +3,18 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Servlet.Redireccionar;
+package Servlet;
 
+import ControladorDB.Controlador;
+import ControladorDB.Controlador2;
+import ControladorDB.Filtracion;
+import Ingresos.Pago;
+import Ingresos.Suscripcion;
+import Usuarios.Usuario;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.time.LocalDate;
+import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -16,7 +24,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author sergio
  */
-public class RedireccionesSuscriptor extends HttpServlet {
+public class Suscribirse extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -35,10 +43,10 @@ public class RedireccionesSuscriptor extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet RedireccionesSuscriptor</title>");            
+            out.println("<title>Servlet Suscribirse</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet RedireccionesSuscriptor at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet Suscribirse at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -70,19 +78,27 @@ public class RedireccionesSuscriptor extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        if ("Mi Perfil".equals(request.getParameter("Mi Perfil"))) {
-            getServletContext().getRequestDispatcher("/AreaSuscriptor/Perfil.jsp").forward(request, response);
+//        for (int i = 0; i < Filtracion.obtenerRevNoSuscritas(((Usuario)request.getSession().getAttribute("Usuario")).getUserName()).size(); i++) {
+//             
+//            
+//        }
+       if (request.getParameter("Aceptar") != null) {
+            LocalDate date = LocalDate.parse(request.getParameter("fecha"));
+            ArrayList<Pago> pagos = new ArrayList<>();
+            for (int i = 0; i < Integer.valueOf(request.getParameter("Meses")); i++) {
+                System.out.println(date.plusMonths(i));
+                System.out.println(Float.parseFloat(request.getParameter("cuota")));
+                System.out.println(Integer.valueOf(request.getParameter("Tarjeta")));
+                Pago pa = new Pago(Float.parseFloat(request.getParameter("cuota")), date.plusMonths(i),Integer.valueOf(request.getParameter("Tarjeta")));
+                pagos.add(pa);
             }
-        if ("Buscar Revistas".equals(request.getParameter("Buscar Revistas"))) {
-            getServletContext().getRequestDispatcher("/AreaSuscriptor/BuscarRevistas.jsp").forward(request, response);
-            } 
-        if ("Mis Revistas".equals(request.getParameter("Mis Revistas"))) {
+
+            Suscripcion su = new Suscripcion(pagos, date, (Usuario) request.getSession().getAttribute("Usuario"));
+            Controlador2 co = new Controlador2();
+            
+            co.guardarSuscripcion(su, request.getParameter("Revista"));
             getServletContext().getRequestDispatcher("/AreaSuscriptor/Home.jsp").forward(request, response);
-            } 
-        if ("Editar Informacion".equals(request.getParameter("EditarInfo"))) {
-            getServletContext().getRequestDispatcher("/AreaSuscriptor/EditarInfo.jsp").forward(request, response);
-            }
-       
+        }
     }
 
     /**

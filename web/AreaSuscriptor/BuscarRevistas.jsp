@@ -1,0 +1,82 @@
+<%-- 
+    Document   : BuscarRevistas
+    Created on : Oct 1, 2019, 5:02:40 PM
+    Author     : sergio
+--%>
+
+<%@page import="java.util.ArrayList"%>
+<%@page import="Revista.Revista"%>
+<%@page import="Revista.Revista"%>
+<%@page import="ControladorDB.Filtracion"%>
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <title>Buscar Revistas</title>
+    </head>
+    <body>
+        <%@include file="/Componentes/cabeceraUsuario.jsp"%>       
+        <br>
+        <br>
+        <br>
+        <br>
+        <div class="container" style="width: 75%;text-align: center">
+            <%@include file="ComponentesSuscriptor/MenuBuscador.html"%>
+        </div>
+        <br> 
+
+        <div class="container" style="width: 75%">
+            <% ArrayList<Revista> rev = Filtracion.obtenerRevNoSuscritas(persona.getUserName());
+                if (rev.size() == 0) {
+            %> <h2 style="text-align: center">No Existen Revistas
+
+                <br>(Stanby)
+            </h2><%
+            } else {
+                for (int i = 0; i < rev.size(); i++) {
+            %>
+
+            <div class="card">
+                <div class="card-header" style="background-color: #ef643d;font: bold">
+                    <%=rev.get(i).getNombre()%>
+                </div>
+                <div class="card-body">
+                    <h5 class="card-title">Autor:  <%=rev.get(i).getAutor().getUserName()%> </h5>
+                    <p class="card-text"><%=rev.get(i).getDescripcion()%></p>
+
+                    <p>
+                        <label class="btn btn-dark"style="background-color: #424040;color: white;font-size: 21px" ><%=rev.get(i).getLikes()%>Likes </label>  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        <a class="btn btn-danger" data-toggle="collapse" href="#collapseExample<%=i%>" role="button" aria-expanded="false" aria-controls="collapseExample">
+                            Suscribirse
+                        </a> 
+                    </p>
+                </div>
+                <div class="collapse" id="collapseExample<%=i%>">
+                    <div class="card card-body">
+                        <form method="post" action="/Revistas/Suscribirse">
+                            <input hidden="true"value="<%=rev.get(i).getCodigo()%>" name="Revista">
+                            Costo/Mes: $<input hidden="true"value="<%=rev.get(i).getCostoPorSuscripcion()%>" name="cuota"><output id="cuota<%=i%>" style="width: 13%" ><%=rev.get(i).getCostoPorSuscripcion()%></output> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            
+                            Meses: <input  onchange="confirmarCambio(<%=i%>)"id="Meses<%=i%>" required="true"type="number" name="Meses" style="width: 7%" width="7%" value="1"min="1" step="1"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#Tarjeta De Credito 
+                            <input type="text" placeholder="Tarjeta" name="Tarjeta" id="Tarjeta"required="true" >     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            <br>Total: $<label style="width: 13%" id="Total<%=i%>"><%=rev.get(i).getCostoPorSuscripcion()%></label> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Fecha: <input type="date" id="fecha" name="fecha" value="fecha"required="true">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+                            <input type="submit" class="btn btn-dark" value="Aceptar" name="Aceptar">
+                        </form>
+                        <br>
+                    </div>
+                </div>
+                <%                    }
+                    }
+
+                %>
+                <br>
+            </div>
+                <script type="text/javascript" src="/Revistas/AreaSuscriptor/meses.js"></script>
+            <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+            <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script> 
+
+    </body>
+</html>

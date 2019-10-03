@@ -24,6 +24,14 @@
         <servlet-name>SolicitarPublicacion</servlet-name>
         <servlet-class>Servlet.SolicitarPublicacion</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>pdf</servlet-name>
+        <servlet-class>Servlet.pdf</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>Suscribirse</servlet-name>
+        <servlet-class>Servlet.Suscribirse</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>InicioSesion</servlet-name>
         <url-pattern>/Iniciar</url-pattern>
@@ -47,6 +55,14 @@
     <servlet-mapping>
         <servlet-name>SolicitarPublicacion</servlet-name>
         <url-pattern>/solicitarPublicacion</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>pdf</servlet-name>
+        <url-pattern>/pdf</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Suscribirse</servlet-name>
+        <url-pattern>/Suscribirse</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

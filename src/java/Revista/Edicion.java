@@ -18,6 +18,7 @@ public class Edicion {
     private InputStream archivo;
     private Revista revista;
     private LocalDateTime fecha;
+    private byte[] archivopdf;
 
     public Edicion(String nombre, int numeroEd, InputStream archivo, Revista revista, LocalDateTime fecha) {
         this.nombre = nombre;
@@ -25,6 +26,14 @@ public class Edicion {
         this.archivo = archivo;
         this.revista = revista;
         this.fecha = fecha;
+    }
+
+    public byte[] getArchivopdf() {
+        return archivopdf;
+    }
+
+    public void setArchivopdf(byte[] archivopdf) {
+        this.archivopdf = archivopdf;
     }
 
     public String getNombre() {

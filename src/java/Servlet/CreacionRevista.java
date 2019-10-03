@@ -73,10 +73,19 @@ public class CreacionRevista extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        
+    
         if (request.getParameter("NuevaR")!=null) {
+            float cuota;
             
+            if ("".equals(request.getParameter("Cuota"))) {
+                cuota=0;
+            }else{
+                cuota=Float.valueOf(request.getParameter("Cuota"));
+            }
             Revista nuevaRevista=new Revista(GeneradorDeCodigos.generarCodigoRevista(),
-                    String.valueOf(request.getParameter("nombre")),Float.valueOf(request.getParameter("Cuota")), null, (Editador)request.getSession().getAttribute("Usuario"),1,true,true);
+                    String.valueOf(request.getParameter("nombre")),cuota, null, (Editador)request.getSession().getAttribute("Usuario"),1,
+                    true,true,String.valueOf(request.getParameter("Descripcion")));
             request.setAttribute("Revista",nuevaRevista);
             getServletContext().getRequestDispatcher("/AreaEditor/EleccionArchivo.jsp").forward(request, response);
         }else if(request.getParameter("NuevaE")!=null){

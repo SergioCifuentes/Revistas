@@ -3,11 +3,14 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Servlet.Redireccionar;
+package Servlet;
 
+import ControladorDB.Coneccion;
+import ControladorDB.Controlador;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -16,7 +19,8 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author sergio
  */
-public class RedireccionesSuscriptor extends HttpServlet {
+@WebServlet(name = "pdf",urlPatterns = {"/pdf"})
+public class pdf extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -29,19 +33,12 @@ public class RedireccionesSuscriptor extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet RedireccionesSuscriptor</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet RedireccionesSuscriptor at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
-        }
+        response.setContentType("application/pdf");
+         System.out.println("2  "+request.getParameter("codigo"));
+         System.out.println("2  "+request.getParameter("ed"));
+        Controlador co = new Controlador();
+        co.pdf(request.getParameter("codigo"),request.getParameter("ed"), response);
+        
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -70,19 +67,7 @@ public class RedireccionesSuscriptor extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        if ("Mi Perfil".equals(request.getParameter("Mi Perfil"))) {
-            getServletContext().getRequestDispatcher("/AreaSuscriptor/Perfil.jsp").forward(request, response);
-            }
-        if ("Buscar Revistas".equals(request.getParameter("Buscar Revistas"))) {
-            getServletContext().getRequestDispatcher("/AreaSuscriptor/BuscarRevistas.jsp").forward(request, response);
-            } 
-        if ("Mis Revistas".equals(request.getParameter("Mis Revistas"))) {
-            getServletContext().getRequestDispatcher("/AreaSuscriptor/Home.jsp").forward(request, response);
-            } 
-        if ("Editar Informacion".equals(request.getParameter("EditarInfo"))) {
-            getServletContext().getRequestDispatcher("/AreaSuscriptor/EditarInfo.jsp").forward(request, response);
-            }
-       
+        processRequest(request, response);
     }
 
     /**
