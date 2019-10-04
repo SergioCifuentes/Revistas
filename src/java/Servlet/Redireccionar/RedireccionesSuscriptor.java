@@ -82,6 +82,9 @@ public class RedireccionesSuscriptor extends HttpServlet {
         if ("Editar Informacion".equals(request.getParameter("EditarInfo"))) {
             getServletContext().getRequestDispatcher("/AreaSuscriptor/EditarInfo.jsp").forward(request, response);
             }
+        if ("Pagos".equals(request.getParameter("Pagos"))) {
+            getServletContext().getRequestDispatcher("/AreaSuscriptor/Pagos.jsp").forward(request, response);
+            }
        
     }
 

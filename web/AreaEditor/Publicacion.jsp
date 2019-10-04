@@ -4,6 +4,9 @@
     Author     : sergio
 --%>
 
+<%@page import="ControladorDB.Controlador"%>
+<%@page import="Revista.Revista"%>
+<%@page import="java.util.ArrayList"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -41,16 +44,18 @@
 
 
                     <div id="EspacioEdicion" hidden="true" style="width: 80%" class="container">
-                        <div class="dropdown">
-                            Elije una Revista     <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                Revistas
-                            </button>
+                        Elije una Revista:     <select name="RevistaVieja"class="custom-select" style="width: 40%">
+                            
                             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                <a class="dropdown-item" href="#">Action</a>
-                                <a class="dropdown-item" href="#">Another action</a>
-                                <a class="dropdown-item" href="#">Something else here</a>
+                                <%Controlador co = new Controlador();
+                                    ArrayList<Revista> revistas = co.obtnerRevistasPorAutor(persona.getUserName());
+                                    for (int idx = 0; idx < revistas.size(); idx++) {%>
+                                    <option class="dropdown-item" href="#"><%=revistas.get(idx).getCodigo()%></option>
+                                <%
+                                    }%>
                             </div>
-                        </div>
+                        </select>
+                            <br>
                     </div>
                 </div>
                 <br>
@@ -78,7 +83,7 @@
                 </div>
 
 
-                
+
                 <br>
                 <br>
             </div>

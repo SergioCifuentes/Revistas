@@ -34,8 +34,6 @@ public class pdf extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("application/pdf");
-         System.out.println("2  "+request.getParameter("codigo"));
-         System.out.println("2  "+request.getParameter("ed"));
         Controlador co = new Controlador();
         co.pdf(request.getParameter("codigo"),request.getParameter("ed"), response);
         

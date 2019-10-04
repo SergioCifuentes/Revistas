@@ -3,6 +3,7 @@
     Created on : Sep 22, 2019, 10:33:30 AM
     Author     : sergio
 --%>
+<%@page import="Ingresos.VerificacionDePago"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="Revista.Revista"%>
 <%@page import="ControladorDB.Controlador"%>
@@ -22,12 +23,14 @@
         <br>
         <br>
         <div class="container" style="width: 75%;text-align: center">
-            <%@include file="ComponentesSuscriptor/MenuMisRevistas.html"%>
+            <%@include file="ComponentesSuscriptor/MenuMisRevistas.jsp"%>
         </div>
-        <br>    
+        <br>        
         <div class="container" style="width: 75%">
             <% Controlador co = new Controlador();
                 ArrayList<Revista> rev = co.obtnerRevistasDeSuscriptor(persona.getUserName());
+                VerificacionDePago ver = new VerificacionDePago();
+                ver.obtenerAtrazos(persona.getUserName());
                 if (rev.size() == 0) {
             %> <h2 style="text-align: center">No tienes niguna Suscripcion
 
@@ -60,17 +63,24 @@
                 <div class="collapse" id="collapseExample<%=i%>">
                     <div class="card card-body">
                         <%for (int j = 0; j < rev.get(i).getEdiciones().size(); j++) {%>
-                        <p style="font-size: 15px">#<%=rev.get(i).getEdiciones().get(j).getNumeroEd()%> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                            <%=rev.get(i).getEdiciones().get(j).getNombre()%> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                            Publicado: <%=rev.get(i).getEdiciones().get(j).getFecha()%>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                        </p><a class="btn btn-success"style="display: inline-block; width:7%" href="pdf?codigo=<%=rev.get(i).getCodigo()%>&ed=<%=rev.get(i).getEdiciones().get(j).getNumeroEd()%>" target="_blank" title="pdf">VER</a>
+                        <form action="/Revistas/pdf">
+                            <p style="font-size: 15px">#<%=rev.get(i).getEdiciones().get(j).getNumeroEd()%> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                <a style="width: 10%"><%=rev.get(i).getEdiciones().get(j).getNombre()%> </a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                Publicado: <%=rev.get(i).getEdiciones().get(j).getFecha()%>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                <input  onmouseenter="verificar(<%=i%>,<%=j%>)" id="boton<%=i+"-"+j%>" type="submit" class="btn btn-success"style="display: inline-block; width:7%" target="_blank" title="pdf" value="Ver"
+                                       <%if (!ver.verificarEdicionPagado(persona.getUserName(),rev.get(i).getCodigo(),rev.get(i).getEdiciones().get(j))) {
+                                           %>disabled="true"<%}%>>
+                            </p>
 
+                            <input hidden="true" name="codigo" value="<%=rev.get(i).getCodigo()%>"><input hidden="true" name="ed" value="<%=rev.get(i).getEdiciones().get(j).getNumeroEd()%>">
+
+                        </form>
                         <%
                             }%>
                         <br>
                     </div>
                 </div>
-                        <div class="collapse" id="collapseComentarios<%=i%>">
+                <div class="collapse" id="collapseComentarios<%=i%>">
                     <div class="card card-body">
                         <%for (int j = 0; j < rev.get(i).getComentario().size(); j++) {%>
                         <p style="font-size: 15px;"> <a style="font-size: 17px;color: #ef643d"><%=rev.get(i).getComentario().get(j).getUserName()%> :</a>&nbsp;&nbsp;&nbsp;
@@ -78,9 +88,9 @@
                         </p>
                         <%
                             }%>
-                            <form>
-                                <input type="text" placeholder="Que piensas sobre la Revista?" style="width: 30%" id="comentario" name="comentario"> <input type="submit" class="btn btn-primary" value="Comantar">
-                            </form>
+                        <form>
+                            <input type="text" placeholder="Que piensas sobre la Revista?" style="width: 30%" id="comentario" name="comentario"> <input type="submit" class="btn btn-primary" value="Comentar">
+                        </form>
                         <br>
                     </div>
                 </div>
@@ -89,7 +99,7 @@
 
                 %>
 
-
+                 <script type="text/javascript" src="/Revistas/AreaSuscriptor/verificarEdiciones.js"></script>
                 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
                 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
                 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script> 

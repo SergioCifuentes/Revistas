@@ -6,6 +6,7 @@
 package Revista;
 
 import java.io.InputStream;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 /**
@@ -17,10 +18,10 @@ public class Edicion {
     private int numeroEd;
     private InputStream archivo;
     private Revista revista;
-    private LocalDateTime fecha;
+    private LocalDate fecha;
     private byte[] archivopdf;
 
-    public Edicion(String nombre, int numeroEd, InputStream archivo, Revista revista, LocalDateTime fecha) {
+    public Edicion(String nombre, int numeroEd, InputStream archivo, Revista revista, LocalDate fecha) {
         this.nombre = nombre;
         this.numeroEd = numeroEd;
         this.archivo = archivo;
@@ -52,7 +53,7 @@ public class Edicion {
         return revista;
     }
 
-    public LocalDateTime getFecha() {
+    public LocalDate getFecha() {
         return fecha;
     }
     

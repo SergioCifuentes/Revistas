@@ -17,7 +17,8 @@ public class Filtracion {
     public static ArrayList<Revista> obtenerRevNoSuscritas(String userName) {
         ArrayList<Revista> revistas = new ArrayList<Revista>();
         Controlador co = new Controlador();
-        ArrayList<Revista> todas = co.obtnerRevistas();
+        Controlador2 co2 = new Controlador2();
+        ArrayList<Revista> todas = co2.obtnerRevistasPorEstado(2);
         ArrayList<Revista> suscritas = co.obtnerRevistasDeSuscriptor(userName);
         for (int i = 0; i < todas.size(); i++) {
             boolean aux = true;

@@ -28,9 +28,9 @@
         <div class="container" style="width: 75%">
             <% Controlador co = new Controlador();
                 ArrayList<Revista> rev = co.obtnerRevistasPorAutor(persona.getUserName());
-                
+                if (rev.size() > 0) {
 
-                for (int i = 0; i < rev.size(); i++) {
+                    for (int i = 0; i < rev.size(); i++) {
             %>
 
             <div class="card">
@@ -39,9 +39,24 @@
                 </div>
                 <div class="card-body">
                     <h5 class="card-title">Codigo : <%=rev.get(i).getCodigo()%> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Suscritos: <%=rev.get(i).getSuscripcions().size()%></h5>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        <% if(rev.get(i).getEstado()==1){%>
+                            Estado: Pendiente...
+                        <%}else{%>
+                        Suscritos: <%=rev.get(i).getSuscripcions().size()%></h5>
+                        <%}%>
                     <p class="card-text"><%= rev.get(i).getDescripcion()%></p>
                     <p>
+                        <% if(rev.get(i).getEstado()==1){%>
+                            
+                        <%}else{%>
+                        <output class="btn btn-secondary" data-toggle="collapse" role="button"aria-expanded="false" aria-controls="collapseExample"><%=rev.get(i).getLikes()%> Likes</output>
+                        
+                        <a class="btn btn-secondary" data-toggle="collapse" href="#collapseComentarios<%=i%>" role="button" aria-expanded="false" aria-controls="collapseExample">
+                            Comentarios
+                        </a>
+                        <%}%>
+                        
                         <a class="btn btn-dark" data-toggle="collapse" href="#collapseExample<%=i%>" role="button" aria-expanded="false" aria-controls="collapseExample">
                             Ediciones
                         </a>                        
@@ -53,8 +68,21 @@
                         <p style="font-size: 15px">#<%=rev.get(i).getEdiciones().get(j).getNumeroEd()%> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                             <%=rev.get(i).getEdiciones().get(j).getNombre()%> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                             Publicado: <%=rev.get(i).getEdiciones().get(j).getFecha()%>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                            </p><a class="btn btn-success"style="display: inline-block; width:7%" href="pdf?codigo=<%=rev.get(i).getCodigo()%>&ed=<%=rev.get(i).getEdiciones().get(j).getNumeroEd()%>" target="_blank" title="pdf">VER</a>
-                            <%}%>
+                        </p><a class="btn btn-success"style="display: inline-block; width:7%" href="pdf?codigo=<%=rev.get(i).getCodigo()%>&ed=<%=rev.get(i).getEdiciones().get(j).getNumeroEd()%>" target="_blank" title="pdf">VER</a>
+                        <%}
+                        %>
+                    </div>
+                </div>
+                    <div class="collapse" id="collapseComentarios<%=i%>">
+                    <div class="card card-body">
+                        <%for (int j = 0; j < rev.get(i).getComentario().size(); j++) {%>
+                        <p style="font-size: 15px;"> <a style="font-size: 17px;color: #ef643d"><%=rev.get(i).getComentario().get(j).getUserName()%> :</a>&nbsp;&nbsp;&nbsp;
+                            <%=rev.get(i).getComentario().get(j).getComentario()%> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        </p>
+                        <%
+                            }%>
+                           
+                        <br>
                     </div>
                 </div>
             </div>                              
@@ -66,6 +94,10 @@
 
             <br>
 
+            <%
+                }
+            } else {%>
+            <h2>No Cuentas Con Revistas</h2>    
             <%
                 }
             %>

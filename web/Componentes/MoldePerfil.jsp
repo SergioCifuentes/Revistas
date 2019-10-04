@@ -9,9 +9,13 @@
 <div style="width:30%" class="container">
     <img src="ControladorImagen?userName=<%=user.getUserName()%>" width="250" height="300" class="rounded-circle">
     <br>
-    <form>
-        <div class="container" style="width: 65%">
-            <input type="submit" class="btn btn-dark" value="Editar Foto">
+    <form action="CambiarFoto" method="POST" enctype="multipart/form-data">
+        <div class="container" style="width: 90%">
+            <div class="custom-file">
+                <input  type="file" class="custom-file-input" name="cambiar"id="cambiar"accept=".jpg,.png" aria-describedby="inputGroupFileAddon01">
+                <label class="custom-file-label" for="inputGroupFile01">Cambiar Foto</label> 
+                <input name="Cambiar"type="submit" class="btn btn-success" value="Cambiar">
+            </div>
         </div>
     </form>
     <br>
@@ -54,7 +58,7 @@
         if (!user.getPerfil().getGustos().equals("")) {%>
     <a style="color: black"><%=user.getPerfil().getGustos()%></a>
     <%} else {%>
-    
+
     <a style="color: gray">'Editar Informacion' para agregar campo</a>
     <%}%>
 </div>

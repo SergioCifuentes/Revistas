@@ -5,6 +5,7 @@
  */
 package Ingresos;
 
+import Revista.Revista;
 import Usuarios.Usuario;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -17,11 +18,19 @@ public class Suscripcion {
     private ArrayList<Pago> pagos;
     private LocalDate fecha;
     private Usuario usuario;
-
+    private Revista revista;
     public Suscripcion(ArrayList<Pago> pagos, LocalDate fecha, Usuario usuario) {
         this.pagos = pagos;
         this.fecha = fecha;
         this.usuario = usuario;
+    }
+
+    public Revista getRevista() {
+        return revista;
+    }
+
+    public void setRevista(Revista revista) {
+        this.revista = revista;
     }
 
     public ArrayList<Pago> getPagos() {

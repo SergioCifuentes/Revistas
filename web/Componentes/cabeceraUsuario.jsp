@@ -13,7 +13,7 @@
 
             </ul>
             <form>
-                <img src="ControladorImagen?userName=<%=persona.getUserName()%>" width="40" height="40" class="rounded-circle">
+                <img src="ControladorImagen?userName=<%=persona.getUserName()%>" width="40" height="40" class="rounded-circle">&nbsp;
                 <a class="navbar-brand" href="#"><%=persona.getUserName()%></a>
 
                 <input  type="submit"class="btn btn-light" value="LogOut" >

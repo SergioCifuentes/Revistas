@@ -87,7 +87,6 @@ public class Controlador extends Coneccion {
             if (getConeccion() == null) {
                 setConeccion();
             }
-            System.out.println(getConeccion() + "sssssssss");
             PreparedStatement declaracionPreparada2 = getConeccion().prepareStatement(ST_CREAR_USUARIO);
             declaracionPreparada2.setString(1, userName);
             declaracionPreparada2.setString(2, String.valueOf(3));
@@ -131,7 +130,6 @@ public class Controlador extends Coneccion {
             declaracionPreparada.setString(2, password);
             ResultSet resultado2 = declaracionPreparada.executeQuery();
             if (resultado2.absolute(1)) {
-                System.out.println("Tipo" + resultado2.getInt("Tipo"));
                 switch (resultado2.getInt("Tipo")) {
                     case 1:
                         return new Administrador(userName, password);
@@ -162,7 +160,6 @@ public class Controlador extends Coneccion {
             declaracionPreparada.setString(1, userName);
             ResultSet resultado2 = declaracionPreparada.executeQuery();
             if (resultado2.absolute(1)) {
-                System.out.println("Tipo" + resultado2.getInt("Tipo"));
                 switch (resultado2.getInt("Tipo")) {
                     case 1:
                         return new Administrador(userName, resultado2.getString("Contrasena"));
@@ -348,9 +345,21 @@ public class Controlador extends Coneccion {
             declaracionPreparada2.setString(9, revista.getDescripcion());
             declaracionPreparada2.executeUpdate();
             //Edicion
-            declaracionPreparada2 = getConeccion().prepareStatement(ST_CREAR_EDICION);
+            publicarNuevaEdicion(revista, edicion);
 
-            declaracionPreparada2.setString(1, String.valueOf(1));
+        } catch (SQLException ex) {
+            Logger.getLogger(Controlador.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    public void publicarNuevaEdicion(Revista revista, Edicion edicion) {
+        try {
+            if (getConeccion() == null) {
+                setConeccion();
+            }
+            
+            //Edicion
+            PreparedStatement declaracionPreparada2 = getConeccion().prepareStatement(ST_CREAR_EDICION);
+            declaracionPreparada2.setString(1, String.valueOf(revista.getEdiciones().size()+1));
             declaracionPreparada2.setString(2, revista.getCodigo());
             declaracionPreparada2.setBlob(3, edicion.getArchivo());
             declaracionPreparada2.setString(4, String.valueOf(edicion.getFecha()));
@@ -361,7 +370,6 @@ public class Controlador extends Coneccion {
             Logger.getLogger(Controlador.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-
     public ArrayList<Revista> obtnerRevistas() {
         ArrayList<Revista> revistas = new ArrayList<Revista>();
         try {
@@ -411,7 +419,7 @@ public class Controlador extends Coneccion {
             ResultSet resultado2 = declaracionPreparada.executeQuery();
             while (resultado2.next()) {
                 Edicion ed = new Edicion(resultado2.getString("Nombre"), resultado2.getInt("NumeroEd"),
-                        resultado2.getBinaryStream("Archivo"), revista, resultado2.getObject("Fecha", LocalDateTime.class));
+                        resultado2.getBinaryStream("Archivo"), revista, resultado2.getObject("Fecha", LocalDate.class));
                 ed.setArchivopdf(resultado2.getBytes("Archivo"));
                 ediciones.add(ed);
             }
@@ -444,7 +452,6 @@ public class Controlador extends Coneccion {
     public void pdf(String codigoRevista, String numeroEd, HttpServletResponse response) {
         byte[] b = null;
         try {
-            System.out.println("codigo: " + codigoRevista);
             if (getConeccion() == null) {
                 setConeccion();
             }

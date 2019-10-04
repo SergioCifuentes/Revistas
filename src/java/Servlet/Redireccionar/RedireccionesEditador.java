@@ -85,7 +85,10 @@ public class RedireccionesEditador extends HttpServlet {
             }     
         if ("Revistas".equals(request.getParameter("Revistas"))) {
             getServletContext().getRequestDispatcher("/AreaEditor/RevistasEd.jsp").forward(request, response);
-            }   
+            }  
+        if ("Reportes".equals(request.getParameter("Reportes"))) {
+            getServletContext().getRequestDispatcher("/AreaEditor/Reportes.jsp").forward(request, response);
+            }  
         
     }
 

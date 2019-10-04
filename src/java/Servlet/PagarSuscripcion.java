@@ -5,31 +5,24 @@
  */
 package Servlet;
 
-import ControladorDB.Controlador;
-import Revista.Edicion;
-import Revista.Revista;
+import ControladorDB.Controlador2;
+import Ingresos.Pago;
+import Ingresos.Suscripcion;
 import Usuarios.Usuario;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.PrintWriter;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.Month;
 import java.util.ArrayList;
-import javafx.util.converter.LocalDateTimeStringConverter;
 import javax.servlet.ServletException;
-import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.Part;
 
 /**
  *
  * @author sergio
  */
-@MultipartConfig
-public class SolicitarPublicacion extends HttpServlet {
+public class PagarSuscripcion extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -48,10 +41,10 @@ public class SolicitarPublicacion extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet SolicitarPublicacion</title>");
+            out.println("<title>Servlet PagarSuscripcion</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet SolicitarPublicacion at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet PagarSuscripcion at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -83,34 +76,17 @@ public class SolicitarPublicacion extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        Part part = request.getPart("edicion");
-        LocalDate date = LocalDate.parse(request.getParameter("fecha"));
-        
-        if (request.getParameter("Siguiente") != null) {
-            
-            if (!"".equals(part.getSubmittedFileName())) {
-                
-                InputStream input = part.getInputStream();
-                Revista revista = (Revista) request.getSession().getAttribute("Revista");
-                Edicion ed = new Edicion(request.getParameter("nombreEd"), 1, input, revista, date);
-                revista.setEdiciones(new ArrayList<Edicion>());
-                ControladorDB.Controlador co = new Controlador();
-                co.publicarNuevaRevista(revista, ed);
+        if (request.getParameter("Aceptar") != null) {
+            Controlador2 co = new Controlador2();
+            LocalDate date = LocalDate.parse(request.getParameter("fecha"));
+            for (int i = 0; i < Integer.valueOf(request.getParameter("Meses")); i++) {
+                Pago pa = new Pago(Float.parseFloat(request.getParameter("cuota")), date.plusMonths(i), Integer.valueOf(request.getParameter("Tarjeta")));
+
+                co.guardarPago(co.obtnerCodigoSuscripcion(((Usuario)request.getSession().getAttribute("Usuario")).getUserName(), request.getParameter("Revista")), pa);
+
             }
-        } else if (request.getParameter("Siguiente2") != null) {
-            if (!"".equals(part.getSubmittedFileName())) {
-                
-                InputStream input = part.getInputStream();
-                Revista revista = (Revista) request.getSession().getAttribute("Revista");
-                Edicion ed = new Edicion(request.getParameter("nombreEd"), 1, input, revista, date);
-                
-                ControladorDB.Controlador co = new Controlador();
-                co.publicarNuevaEdicion(revista, ed);
-            }
-            
+            getServletContext().getRequestDispatcher("/AreaSuscriptor/Pagos.jsp").forward(request, response);
         }
-        
-        getServletContext().getRequestDispatcher("/AreaEditor/RevistasEd.jsp").forward(request, response);
     }
 
     /**

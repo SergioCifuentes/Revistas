@@ -15,10 +15,10 @@ public class GeneradorDeCodigos {
 
     private static final String ID_REVISTA = "R";
     private static final String ID_SUSCRIPCION = "S";
-    private static final String ID_PAGO = "R";
+    private static final String ID_PAGO = "P";
 
     public static String generarCodigoRevista() {
-        String codigo = "000";
+        String codigo = "100";
         Controlador co = new Controlador();
         if (co.obtenerCodigoDeRevistas() != null) {
             codigo = String.valueOf(Integer.valueOf(codigo) + co.obtenerCodigoDeRevistas().size());
@@ -32,7 +32,7 @@ public class GeneradorDeCodigos {
     }
 
     public static String generarCodigoSuscripcion() {
-        String codigo = "000";
+        String codigo = "100";
         Controlador co = new Controlador();
         if (co.obtenerCodigoDeSuscripcion()!= null) {
             codigo = String.valueOf(Integer.valueOf(codigo) + co.obtenerCodigoDeSuscripcion().size());
@@ -43,7 +43,7 @@ public class GeneradorDeCodigos {
     }
 
     public static String generarCodigoPago() {
-        String codigo = "000";
+        String codigo = "100";
         Controlador co = new Controlador();
         if (co.obtenerCodigoDePagos() != null) {
             codigo = String.valueOf(Integer.valueOf(codigo) + co.obtenerCodigoDePagos().size());

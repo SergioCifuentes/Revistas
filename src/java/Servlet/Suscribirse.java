@@ -86,9 +86,6 @@ public class Suscribirse extends HttpServlet {
             LocalDate date = LocalDate.parse(request.getParameter("fecha"));
             ArrayList<Pago> pagos = new ArrayList<>();
             for (int i = 0; i < Integer.valueOf(request.getParameter("Meses")); i++) {
-                System.out.println(date.plusMonths(i));
-                System.out.println(Float.parseFloat(request.getParameter("cuota")));
-                System.out.println(Integer.valueOf(request.getParameter("Tarjeta")));
                 Pago pa = new Pago(Float.parseFloat(request.getParameter("cuota")), date.plusMonths(i),Integer.valueOf(request.getParameter("Tarjeta")));
                 pagos.add(pa);
             }

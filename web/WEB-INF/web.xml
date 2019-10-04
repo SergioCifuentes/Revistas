@@ -32,6 +32,18 @@
         <servlet-name>Suscribirse</servlet-name>
         <servlet-class>Servlet.Suscribirse</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>CambiarFoto</servlet-name>
+        <servlet-class>Servlet.CambiarFoto</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>Publicar</servlet-name>
+        <servlet-class>Servlet.Publicar</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>PagarSuscripcion</servlet-name>
+        <servlet-class>Servlet.PagarSuscripcion</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>InicioSesion</servlet-name>
         <url-pattern>/Iniciar</url-pattern>
@@ -63,6 +75,18 @@
     <servlet-mapping>
         <servlet-name>Suscribirse</servlet-name>
         <url-pattern>/Suscribirse</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CambiarFoto</servlet-name>
+        <url-pattern>/CambiarFoto</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Publicar</servlet-name>
+        <url-pattern>/Publicar</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>PagarSuscripcion</servlet-name>
+        <url-pattern>/PagarSuscripcion</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

@@ -5,6 +5,7 @@
  */
 package Servlet;
 
+import ControladorDB.Controlador;
 import Revista.GeneradorDeCodigos;
 import Revista.Revista;
 import Usuarios.Editador;
@@ -89,7 +90,9 @@ public class CreacionRevista extends HttpServlet {
             request.setAttribute("Revista",nuevaRevista);
             getServletContext().getRequestDispatcher("/AreaEditor/EleccionArchivo.jsp").forward(request, response);
         }else if(request.getParameter("NuevaE")!=null){
-            
+            Controlador co = new Controlador();
+            request.setAttribute("Revista",co.obtnerRevistaPorCodigo(request.getParameter("RevistaVieja")));
+            getServletContext().getRequestDispatcher("/AreaEditor/EleccionArchivo2.jsp").forward(request, response);
         }
     }
 
