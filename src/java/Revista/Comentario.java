@@ -33,5 +33,23 @@ public class Comentario {
         this.comentario = comentario;
         this.fecha = fecha;
     }
+    private String codigoRevista;
+    private String nombreRevista;
+
+    public String getCodigoRevista() {
+        return codigoRevista;
+    }
+
+    public void setCodigoRevista(String codigoRevista) {
+        this.codigoRevista = codigoRevista;
+    }
+
+    public String getNombreRevista() {
+        return nombreRevista;
+    }
+
+    public void setNombreRevista(String nombreRevista) {
+        this.nombreRevista = nombreRevista;
+    }
     
 }

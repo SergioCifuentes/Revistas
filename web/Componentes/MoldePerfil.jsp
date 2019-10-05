@@ -2,7 +2,6 @@
 <%@page import="Usuarios.Usuario"%>
 
 <% Usuario user = (Usuario) request.getSession().getAttribute("Usuario");%>
-<%System.out.println(request.getSession().getAttribute("Usuario"));%>
 <br>
 <a style="font-size: 50px;color: tomato;font: fantasy"><%=user.getUserName()%></a>
 <br>

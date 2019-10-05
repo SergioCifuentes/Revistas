@@ -18,6 +18,7 @@ public class Suscripcion {
     private ArrayList<Pago> pagos;
     private LocalDate fecha;
     private Usuario usuario;
+    private String codigoRevista;
     private Revista revista;
     public Suscripcion(ArrayList<Pago> pagos, LocalDate fecha, Usuario usuario) {
         this.pagos = pagos;
@@ -37,12 +38,29 @@ public class Suscripcion {
         return pagos;
     }
 
+    public String getCodigoRevista() {
+        return codigoRevista;
+    }
+
+    public void setCodigoRevista(String codigoRevista) {
+        this.codigoRevista = codigoRevista;
+    }
+
     public LocalDate getFecha() {
         return fecha;
     }
 
     public Usuario getUsuario() {
         return usuario;
+    }
+    private String nombreRevista;
+
+    public String getNombreRevista() {
+        return nombreRevista;
+    }
+
+    public void setNombreRevista(String nombreRevista) {
+        this.nombreRevista = nombreRevista;
     }
     
 }

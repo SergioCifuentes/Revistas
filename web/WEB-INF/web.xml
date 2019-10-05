@@ -44,6 +44,18 @@
         <servlet-name>PagarSuscripcion</servlet-name>
         <servlet-class>Servlet.PagarSuscripcion</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>Comentar</servlet-name>
+        <servlet-class>Servlet.Comentar</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>BuscarAutor</servlet-name>
+        <servlet-class>Servlet.BuscarAutor</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>Filtracion</servlet-name>
+        <servlet-class>Servlet.Filtracion</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>InicioSesion</servlet-name>
         <url-pattern>/Iniciar</url-pattern>
@@ -87,6 +99,18 @@
     <servlet-mapping>
         <servlet-name>PagarSuscripcion</servlet-name>
         <url-pattern>/PagarSuscripcion</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Comentar</servlet-name>
+        <url-pattern>/Comentar</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>BuscarAutor</servlet-name>
+        <url-pattern>/BuscarAutor</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Filtracion</servlet-name>
+        <url-pattern>/Filtracion</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

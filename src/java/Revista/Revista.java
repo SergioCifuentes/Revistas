@@ -14,16 +14,17 @@ import java.util.ArrayList;
  * @author sergio
  */
 public class Revista {
+
     private String codigo;
     private String nombre;
-    
+
     private float costoPorSuscripcion;
     private Categoria categoria;
     private Editador autor;
-    private int  estado;
+    private int estado;
     private String descripcion;
-    private boolean  comentarioBloqueados;
-    private boolean  suscripcionesBloqueados;
+    private boolean comentarioBloqueados;
+    private boolean suscripcionesBloqueados;
     private ArrayList<Etiqueta> etiquetas;
     private ArrayList<Edicion> ediciones;
     private ArrayList<Costos> costos;
@@ -37,10 +38,26 @@ public class Revista {
     public void setSuscripcions(ArrayList<Suscripcion> suscripcions) {
         this.suscripcions = suscripcions;
     }
+
     public void addSuscripcions(Suscripcion suscripcions) {
         this.suscripcions.add(suscripcions);
     }
-    public Revista(String codigo, String nombre, float costoPorSuscripcion, Categoria categoria, Editador autor, int estado, boolean comentarioBloqueados, boolean suscripcionesBloqueados,String descripcion) {
+    private ArrayList<Comentario> comentarios;
+    public void addComentario(Comentario com) {
+        if (comentarios==null) {
+            comentarios= new ArrayList<Comentario>();
+        }
+        this.comentarios.add(com);
+    }
+    public ArrayList<Comentario> getComentarios(){
+        return comentarios;
+    }
+    public Revista(String codigo, String nombre) {
+        this.codigo = codigo;
+        this.nombre = nombre;
+    }
+
+    public Revista(String codigo, String nombre, float costoPorSuscripcion, Categoria categoria, Editador autor, int estado, boolean comentarioBloqueados, boolean suscripcionesBloqueados, String descripcion) {
         this.codigo = codigo;
         this.nombre = nombre;
         this.costoPorSuscripcion = costoPorSuscripcion;
@@ -49,7 +66,7 @@ public class Revista {
         this.estado = estado;
         this.comentarioBloqueados = comentarioBloqueados;
         this.suscripcionesBloqueados = suscripcionesBloqueados;
-        this.descripcion=descripcion;
+        this.descripcion = descripcion;
     }
 
     public String getDescripcion() {
@@ -84,8 +101,6 @@ public class Revista {
         this.ediciones = ediciones;
     }
 
-    
-
     public String getCodigo() {
         return codigo;
     }
@@ -113,29 +128,37 @@ public class Revista {
     public ArrayList<Costos> getCostos() {
         return costos;
     }
+
+    public void addSuscripcion(Suscripcion su) {
+        if (suscripcions == null) {
+            suscripcions = new ArrayList<>();
+        }
+        suscripcions.add(su);
+    }
     
-    public ArrayList<Comentario> getComentario(){
-        
+    public ArrayList<Comentario> getComentario() {
+
         ArrayList<Comentario> comentarios = new ArrayList<>();
         for (int i = 0; i < reaccions.size(); i++) {
-            if (reaccions.get(i).getComentario()!=null&&!"".equals(reaccions.get(i).getComentario())) {
-                comentarios.add(new Comentario(reaccions.get(i).getSuscriptor().getUserName(),reaccions.get(i).getComentario()
-                        , reaccions.get(i).getFecha()));
+            if (reaccions.get(i).getComentario() != null && !"".equals(reaccions.get(i).getComentario())) {
+                comentarios.add(new Comentario(reaccions.get(i).getSuscriptor().getUserName(), reaccions.get(i).getComentario(),
+                         reaccions.get(i).getFecha()));
             }
-            
+
         }
         return comentarios;
     }
-        public int getLikes(){
-        
-       int likes =0;
+
+    public int getLikes() {
+
+        int likes = 0;
         for (int i = 0; i < reaccions.size(); i++) {
             if (reaccions.get(i).isLike()) {
                 likes++;
             }
-            
+
         }
         return likes;
     }
-    
+
 }

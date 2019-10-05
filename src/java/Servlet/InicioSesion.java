@@ -36,9 +36,14 @@ public class InicioSesion extends HttpServlet {
                 nuevoSession.setAttribute("Usuario", usuario);
             if (usuario!=null) {
                 request.setAttribute("Usuario",usuario);
-                try {
-                    Administrador admin = (Administrador)usuario;
+               try {
+                     Administrador admin = (Administrador)usuario;
+                    request.setAttribute("Ganancias",true);
+                    request.setAttribute("Suscritos",false);
+                    request.setAttribute("Pendiente",false);
+                    request.setAttribute("Comentarios",false);
                     getServletContext().getRequestDispatcher("/Administracion/HomeAdmin.jsp").forward(request, response);
+                
                 } catch (Exception e) {
                     try {
                         Editador editador= (Editador)usuario;
@@ -64,11 +69,6 @@ public class InicioSesion extends HttpServlet {
             dispatcher.forward(request, response);
             
         }
-    }
-    public static void main(String[] args) {
-        Controlador co = new Controlador();
-        co.crearUsuario("sergio","pass");
-        
     }
     /**
      * Returns a short description of the servlet.
