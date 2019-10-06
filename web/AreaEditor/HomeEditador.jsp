@@ -22,5 +22,7 @@
             <%@include file="ComponentesMenu/MenuHome.html"%>
                 <form>
         </div>
+                <br>
+                <h2 style="text-align: center">Bienvenido !!!</h2>
     </body>
 </html>

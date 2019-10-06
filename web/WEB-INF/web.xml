@@ -56,6 +56,10 @@
         <servlet-name>Filtracion</servlet-name>
         <servlet-class>Servlet.Filtracion</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>FiltracionEd</servlet-name>
+        <servlet-class>Servlet.FiltracionEd</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>InicioSesion</servlet-name>
         <url-pattern>/Iniciar</url-pattern>
@@ -111,6 +115,10 @@
     <servlet-mapping>
         <servlet-name>Filtracion</servlet-name>
         <url-pattern>/Filtracion</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>FiltracionEd</servlet-name>
+        <url-pattern>/FiltracionEd</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

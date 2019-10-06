@@ -54,10 +54,4 @@ public class SignUp extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
-    public static void main(String[] args) {
-        
-            Controlador co = new Controlador();
-            co.crearUsuario("sergio","pass");
-            
-    }
 }

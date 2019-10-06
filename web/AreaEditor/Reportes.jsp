@@ -5,6 +5,7 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>  
 <!DOCTYPE html>
 <html>
     <head>
@@ -22,19 +23,23 @@
             <%@include file="ComponentesMenu/MenuReportes.html"%>
             <ul class="nav nav-tabs" id="myTab" role="tablist">
                 <li class="nav-item">
-                    <a class="nav-link " id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="false">Home</a>
+                    <a class="nav-link <c:if test="${requestScope['comentarios'] == true}"> active</c:if>"  id="home-tab" data-toggle="tab" href="#comentarios" role="tab" aria-controls="comentarios" aria-selected="false">Comentarios</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link active" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="true">Profile</a>
+                    <a class="nav-link <c:if test="${requestScope['Suscripciones'] == true}"> active</c:if>"  id="profile-tab" data-toggle="tab" href="#Suscripciones" role="tab" aria-controls="Suscripciones" aria-selected="false">Suscripciones</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false">Contact</a>
+                    <a class="nav-link <c:if test="${requestScope['Likes'] == true}"> active</c:if>"  id="contact-tab" data-toggle="tab" href="#Likes" role="tab" aria-controls="Likes" aria-selected="false">Likes</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link <c:if test="${requestScope['Ganancias'] == true}"> active</c:if>"  id="contact-tab" data-toggle="tab" href="#Ganancias" role="tab" aria-controls="Ganancias" aria-selected="false">Ganancias</a>
                 </li>
             </ul>
             <div class="tab-content" id="myTabContent">
-                <div class="tab-pane fade" id="home" role="tabpanel" aria-labelledby="home-tab">.sdawd</div>
-                <div class="tab-pane fade show active" id="profile" role="tabpanel" aria-labelledby="profile-tab">.wdaw.</div>
-                <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">..a.</div>
+                <div class="tab-pane fade <c:if test="${requestScope['comentarios'] == true}">show active</c:if>" id="comentarios" role="tabpanel" aria-labelledby="comentarios-tab"><%@include file="Reports/Comentarios.jsp"%></div>
+                <div class="tab-pane fade <c:if test="${requestScope['Suscripciones'] == true}">show active</c:if>" id="Suscripciones" role="tabpanel" aria-labelledby="Suscripciones-tab"><%@include file="Reports/Suscripciones.jsp"%></div>
+                <div class="tab-pane fade <c:if test="${requestScope['Likes'] == true}">show active</c:if>" id="Likes" role="tabpanel" aria-labelledby="Likes-tab"><%@include file="Reports/Likes.jsp"%></div>
+                <div class="tab-pane fade <c:if test="${requestScope['Ganancias'] == true}">show active</c:if>" id="Ganancias" role="tabpanel" aria-labelledby="Ganancias-tab"><%@include file="Reports/Ganancias.jsp"%></div>
             </div>
         </div>
             <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>

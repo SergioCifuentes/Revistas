@@ -8,6 +8,7 @@ package Servlet;
 import ControladorDB.ControlReportes;
 import ControladorDB.Controlador;
 import Revista.Revista;
+import Usuarios.Usuario;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.time.LocalDate;
@@ -22,7 +23,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author sergio
  */
-public class Filtracion extends HttpServlet {
+public class FiltracionEd extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -41,10 +42,10 @@ public class Filtracion extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet Filtracion</title>");
+            out.println("<title>Servlet FiltracionEd</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet Filtracion at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet FiltracionEd at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -76,39 +77,6 @@ public class Filtracion extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        if ("Filtrar".equals(request.getParameter("FiltrarS"))) {
-            LocalDate inicio;
-            LocalDate fin;
-            if (!"".equals(request.getParameter("inicio"))) {
-                inicio = LocalDate.parse(request.getParameter("inicio"));
-            } else {
-                inicio = null;
-            }
-            if (!"".equals(request.getParameter("fin"))) {
-                fin = LocalDate.parse(request.getParameter("fin"));
-            } else {
-                fin = null;
-            }
-            ControlReportes co = new ControlReportes();
-            request.setAttribute("RevistasAMostrar", co.obtenerMasSuscritos(inicio, fin));
-            request.setAttribute("Suscritos", true);
-            request.setAttribute("Ganancias", false);
-            request.setAttribute("inicioS", inicio);
-            request.setAttribute("finS", fin);
-
-            RequestDispatcher dispatcher = request.getRequestDispatcher("/Administracion/HomeAdmin.jsp");
-            dispatcher.forward(request, response);
-
-//            getServletContext().getRequestDispatcher("/AreaEditor/Reportes.jsp").forward(request, response);
-        }
-        if ("Recetear".equals(request.getParameter("RecetearS"))) {
-            request.setAttribute("Suscritos", true);
-            request.setAttribute("Ganancias", false);
-
-            RequestDispatcher dispatcher = request.getRequestDispatcher("/Administracion/HomeAdmin.jsp");
-            dispatcher.forward(request, response);
-        }
-
         if ("Filtrar".equals(request.getParameter("FiltrarC"))) {
             LocalDate inicio;
             LocalDate fin;
@@ -123,31 +91,69 @@ public class Filtracion extends HttpServlet {
                 fin = null;
             }
             ControlReportes co = new ControlReportes();
-            request.setAttribute("RevistasAMostrar", co.obtenerMasComentadas(inicio, fin));
-            request.setAttribute("Suscritos", false);
-            request.setAttribute("Comentarios", true);
+            if ("Ninguno".equals(request.getParameter("RevistaVieja"))) {
+                request.setAttribute("RevistasAMostrarC", co.obtenerComentarios(inicio, fin, ((Usuario) request.getSession().getAttribute("Usuario")).getUserName(), null));
+            } else {
+                request.setAttribute("RevistasAMostrarC", co.obtenerComentarios(inicio, fin, ((Usuario) request.getSession().getAttribute("Usuario")).getUserName(), request.getParameter("RevistaVieja")));
+
+            }
+            request.setAttribute("comentarios", true);
             request.setAttribute("Ganancias", false);
             request.setAttribute("inicioC", inicio);
             request.setAttribute("finC", fin);
 
-            RequestDispatcher dispatcher = request.getRequestDispatcher("/Administracion/HomeAdmin.jsp");
+            RequestDispatcher dispatcher = request.getRequestDispatcher("/AreaEditor/Reportes.jsp");
             dispatcher.forward(request, response);
-
-//            getServletContext().getRequestDispatcher("/AreaEditor/Reportes.jsp").forward(request, response);
         }
         if ("Recetear".equals(request.getParameter("RecetearC"))) {
-            request.setAttribute("Suscritos", false);
-            request.setAttribute("Comentarios", true);
+            request.setAttribute("comentarios", true);
             request.setAttribute("Ganancias", false);
-            RequestDispatcher dispatcher = request.getRequestDispatcher("/Administracion/HomeAdmin.jsp");
+            RequestDispatcher dispatcher = request.getRequestDispatcher("/AreaEditor/Reportes.jsp");
 
             dispatcher.forward(request, response);
         }
+
+        if ("Filtrar".equals(request.getParameter("FiltrarS"))) {
+            LocalDate inicio;
+            LocalDate fin;
+            if (!"".equals(request.getParameter("inicio"))) {
+                inicio = LocalDate.parse(request.getParameter("inicio"));
+            } else {
+                inicio = null;
+            }
+            if (!"".equals(request.getParameter("fin"))) {
+                fin = LocalDate.parse(request.getParameter("fin"));
+            } else {
+                fin = null;
+            }
+            ControlReportes co = new ControlReportes();
+            if ("Ninguno".equals(request.getParameter("RevistaVieja"))) {
+                request.setAttribute("RevistasAMostrarS", co.obtenerSuscripcion(inicio, fin, ((Usuario) request.getSession().getAttribute("Usuario")).getUserName(), null));
+            } else {
+                request.setAttribute("RevistasAMostrarS", co.obtenerSuscripcion(inicio, fin, ((Usuario) request.getSession().getAttribute("Usuario")).getUserName(), request.getParameter("RevistaVieja")));
+
+            }
+            request.setAttribute("Suscripciones", true);
+            request.setAttribute("comentarios", false);
+            request.setAttribute("Ganancias", false);
+            request.setAttribute("inicioS", inicio);
+            request.setAttribute("finS", fin);
+
+            RequestDispatcher dispatcher = request.getRequestDispatcher("/AreaEditor/Reportes.jsp");
+            dispatcher.forward(request, response);
+        }
+        if ("Recetear".equals(request.getParameter("RecetearS"))) {
+            request.setAttribute("Suscripciones", true);
+            request.setAttribute("Ganancias", false);
+            RequestDispatcher dispatcher = request.getRequestDispatcher("/AreaEditor/Reportes.jsp");
+
+            dispatcher.forward(request, response);
+        }
+
         if ("Recetear".equals(request.getParameter("RecetearG"))) {
-            request.setAttribute("Suscritos", false);
-            request.setAttribute("Comentarios", false);
+            request.setAttribute("comentarios", false);
             request.setAttribute("Ganancias", true);
-            RequestDispatcher dispatcher = request.getRequestDispatcher("/Administracion/HomeAdmin.jsp");
+            RequestDispatcher dispatcher = request.getRequestDispatcher("/AreaEditor/Reportes.jsp");
             dispatcher.forward(request, response);
         }
         if ("Filtrar".equals(request.getParameter("FiltrarG"))) {
@@ -165,24 +171,64 @@ public class Filtracion extends HttpServlet {
             }
             ControlReportes co = new ControlReportes();
             Controlador co2 = new Controlador();
-            if ("Ninguno".equals(request.getParameter("RevistaVieja"))) {
-//                request.setAttribute("RevistasAMostrar", co.obtenerGanancias(inicio, fin,null));
-            }else{
-                ArrayList<Revista> re=new ArrayList<Revista>();
-                re.add(co2.obtnerRevistaPorCodigo(request.getParameter("RevistaVieja")));
-                request.setAttribute("RevistasAMostrarG",re);
+            if ("Ninguno".equals(request.getParameter("RevistaViejaG"))) {
+            } else {
+                ArrayList<Revista> re = new ArrayList<Revista>();
+                re.add(co2.obtnerRevistaPorCodigo(request.getParameter("RevistaViejaG")));
+                request.setAttribute("RevistasAMostrarG", re);
             }
-            
-            request.setAttribute("Suscritos", false);
-            request.setAttribute("Comentarios", false);
+            request.setAttribute("comentarios", false);
             request.setAttribute("Ganancias", true);
             request.setAttribute("inicioG", inicio);
             request.setAttribute("finG", fin);
 
-            RequestDispatcher dispatcher = request.getRequestDispatcher("/Administracion/HomeAdmin.jsp");
+            RequestDispatcher dispatcher = request.getRequestDispatcher("/AreaEditor/Reportes.jsp");
             dispatcher.forward(request, response);
         }
 
+        
+        
+        
+        
+        if ("Recetear".equals(request.getParameter("RecetearL"))) {
+            request.setAttribute("comentarios", false);
+            request.setAttribute("Ganancias", false);
+            request.setAttribute("Likes", true);
+            RequestDispatcher dispatcher = request.getRequestDispatcher("/AreaEditor/Reportes.jsp");
+            dispatcher.forward(request, response);
+        }
+        if ("Filtrar".equals(request.getParameter("FiltrarL"))) {
+            LocalDate inicio;
+            LocalDate fin;
+
+            if (!"".equals(request.getParameter("inicio"))) {
+                inicio = LocalDate.parse(request.getParameter("inicio"));
+            } else {
+                inicio = null;
+            }
+            if (!"".equals(request.getParameter("fin"))) {
+                fin = LocalDate.parse(request.getParameter("fin"));
+            } else {
+                fin = null;
+            }
+            ControlReportes co = new ControlReportes();
+            Controlador co2 = new Controlador();
+            if ("Ninguno".equals(request.getParameter("RevistaViejaL"))) {
+                request.setAttribute("RevistasAMostrarL", co.obtenerMasLikes(inicio, fin, ((Usuario) request.getSession().getAttribute("Usuario")).getUserName(), null));
+            } else {
+                request.setAttribute("RevistasAMostrarL", co.obtenerMasLikes(inicio, fin, ((Usuario) request.getSession().getAttribute("Usuario")).getUserName(), request.getParameter("RevistaViejaL")));
+            }
+            request.setAttribute("Ganancias", false);
+            request.setAttribute("comentarios", false);
+            request.setAttribute("Suscripciones", false);
+            request.setAttribute("Likes", true);
+            request.setAttribute("inicioL", inicio);
+            request.setAttribute("finL", fin);
+
+            RequestDispatcher dispatcher = request.getRequestDispatcher("/AreaEditor/Reportes.jsp");
+            dispatcher.forward(request, response);
+
+        }
     }
 
     /**

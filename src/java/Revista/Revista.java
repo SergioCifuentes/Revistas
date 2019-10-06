@@ -53,6 +53,16 @@ public class Revista {
     public ArrayList<Comentario> getComentarios(){
         return comentarios;
     }
+    private ArrayList<String> likes;
+    public void addLike(String user) {
+        if (likes==null) {
+            likes= new ArrayList<>();
+        }
+        this.likes.add(user);
+    }    
+    public ArrayList<String> getLike(){
+        return likes;
+    }
     public Revista(String codigo, String nombre) {
         this.codigo = codigo;
         this.nombre = nombre;

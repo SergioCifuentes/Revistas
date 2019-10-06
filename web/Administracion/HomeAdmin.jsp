@@ -76,7 +76,7 @@
                         <div class="tab-content" id="myTabContent">
                             <div class="tab-pane fade  <c:if test="${requestScope['Ganancias'] == true}">show active</c:if>" id="Ganancia" role="tabpanel" aria-labelledby="Ganancia-tab"><%@include file="Componentes/Ganancias.jsp"%></div>
                             <div class="tab-pane fade <c:if test="${requestScope['Pendiente'] == true}">show active</c:if>" id="pendiente" role="tabpanel" aria-labelledby="pendiente-tab"><%@include file="Componentes/RevistasPendientes.jsp"%></div>
-                            <div class="tab-pane fade <c:if test="${requestScope['Suscritos'] == true}"> show active</c:if>" id="TopS" role="tabpanel" aria-labelledby="TopS-tab"><%@include file="Componentes/TopSuscrito.jsp"%></div>
+                            <div class="tab-pane fade <c:if test="${requestScope['Suscritos'] == true}">show active</c:if>" id="TopS" role="tabpanel" aria-labelledby="TopS-tab"><%@include file="Componentes/TopSuscrito.jsp"%></div>
                             <div class="tab-pane fade <c:if test="${requestScope['Comentarios'] == true}">show active</c:if>" id="TopC" role="tabpanel" aria-labelledby="TopC-tab"><%@include file="Componentes/TopComentarios.jsp"%></div>
                         </div>
                     </div>

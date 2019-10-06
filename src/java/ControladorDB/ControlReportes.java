@@ -26,12 +26,179 @@ public class ControlReportes extends Coneccion {
             + "FROM Suscripcion s JOIN Revista r ON s.CodigoRevista=r.Codigo ";
     private final static String ST_PORCENTAJE_SISTEMA = "SELECT PorcentajeSistema FROM PreciosAdmin";
     private final static String ST_COMENTARIO = " SELECT CodigoRevista,Nombre,Comentario,s.UserName  From Reaccion s Join Revista r On s.CodigoRevista=r.Codigo ";
-     private final static String ST_PAGOS = " SELECT CodigoRevista,Nombre,Comentario,s.UserName  From Reaccion s Join Revista r On s.CodigoRevista=r.Codigo ";
+    private final static String ST_LIKES = " SELECT CodigoRevista,Nombre,Likes,s.UserName  From Reaccion s Join Revista r On s.CodigoRevista=r.Codigo ";
+    private final static String ST_COMENTARIOS_EDITOR = " r.UserName=? ";
+
+    private final static String ST_PAGOS = " SELECT CodigoRevista,Nombre,Comentario,s.UserName  From Reaccion s Join Revista r On s.CodigoRevista=r.Codigo ";
     private final static String ST_NOT_NULL = " Comentario != 'Null'";
+    private final static String ST_REVISTA_EDITOR = " CodigoRevista= ? ";
     private final static String ST_WHERE = " WHERE ";
     private final static String ST_FECHA_INICIO = " s.Fecha> ? ";
     private final static String ST_AND = " AND ";
     private final static String ST_FECHA_FINAL = " s.Fecha< ? ";
+
+    public ArrayList<Revista> obtenerMasLikes(LocalDate inicio, LocalDate fin, String userName , String codigoRevista) {
+        ArrayList<Comentario> likes = new ArrayList<>();
+        ArrayList<Revista> revistas = new ArrayList<>();
+        String re = "";
+        try {
+            if (getConeccion() == null) {
+                setConeccion();
+            }
+            if (codigoRevista != null) {
+            re = ST_AND + ST_REVISTA_EDITOR;
+            re = re.replace("?", "'" + codigoRevista + "'");
+        }
+            ResultSet resultado2 = null;
+            if (inicio == null && fin == null) {
+                PreparedStatement declaracionPreparada = getConeccion().prepareStatement(ST_LIKES + ST_WHERE + ST_COMENTARIOS_EDITOR + re);
+                declaracionPreparada.setString(1, String.valueOf(userName));
+                resultado2 = declaracionPreparada.executeQuery();
+            }
+            if (inicio != null && fin != null) {
+                PreparedStatement declaracionPreparada = getConeccion().prepareStatement(ST_LIKES + ST_WHERE + ST_COMENTARIOS_EDITOR + ST_AND + ST_FECHA_INICIO + ST_AND + ST_FECHA_FINAL + re);
+                declaracionPreparada.setString(1, String.valueOf(userName));
+                declaracionPreparada.setString(2, String.valueOf(inicio));
+                declaracionPreparada.setString(3, String.valueOf(fin));
+                resultado2 = declaracionPreparada.executeQuery();
+            }
+
+            if (inicio != null && fin == null) {
+                PreparedStatement declaracionPreparada = getConeccion().prepareStatement(ST_LIKES + ST_WHERE + ST_COMENTARIOS_EDITOR + ST_AND + ST_FECHA_INICIO + re);
+                declaracionPreparada.setString(1, String.valueOf(userName));
+                declaracionPreparada.setString(2, String.valueOf(inicio));
+                resultado2 = declaracionPreparada.executeQuery();
+            }
+            if (inicio == null && fin != null) {
+                PreparedStatement declaracionPreparada = getConeccion().prepareStatement(ST_LIKES + ST_WHERE + ST_COMENTARIOS_EDITOR + ST_AND + ST_FECHA_FINAL + re);
+                declaracionPreparada.setString(1, String.valueOf(userName));
+                declaracionPreparada.setString(2, String.valueOf(fin));
+                resultado2 = declaracionPreparada.executeQuery();
+            }
+            Controlador co = new Controlador();
+            while (resultado2.next()) {
+                boolean aux = true;
+                if (resultado2.getBoolean("Likes")) {
+                    for (int i = 0; i < revistas.size(); i++) {
+                        if (revistas.get(i).getCodigo().equals(resultado2.getString("CodigoRevista"))) {
+                            revistas.get(i).addLike(resultado2.getString("UserName"));
+                            aux = false;
+                        }
+                    }
+                    if (aux) {
+                        Revista rev = new Revista(resultado2.getString("CodigoRevista"),resultado2.getString("Nombre"));
+                        rev.addLike(resultado2.getString("UserName"));
+                        revistas.add(rev);
+                    }
+                }
+            }
+
+        } catch (NumberFormatException | SQLException e) {
+        }
+        return ordenar(revistas, 3);
+    }
+
+    public ArrayList<String[]> obtenerComentarios(LocalDate inicio, LocalDate fin, String userName, String codigoRevista) {
+        ArrayList<String[]> comentarios = new ArrayList<>();
+        String re = "";
+        if (codigoRevista != null) {
+            re = ST_AND + ST_REVISTA_EDITOR;
+            re = re.replace("?", "'" + codigoRevista + "'");
+        }
+        try {
+            if (getConeccion() == null) {
+                setConeccion();
+            }
+            ResultSet resultado2 = null;
+            PreparedStatement declaracionPreparada = null;
+            if (inicio == null && fin == null) {
+                declaracionPreparada = getConeccion().prepareStatement(ST_COMENTARIO + ST_WHERE + ST_COMENTARIOS_EDITOR + ST_AND + ST_NOT_NULL + re);
+                declaracionPreparada.setString(1, String.valueOf(userName));
+            }
+            if (inicio != null && fin != null) {
+                declaracionPreparada = getConeccion().prepareStatement(ST_COMENTARIO + ST_WHERE + ST_COMENTARIOS_EDITOR + ST_AND + ST_FECHA_INICIO + ST_AND + ST_FECHA_FINAL + ST_AND + ST_NOT_NULL + re);
+                declaracionPreparada.setString(1, String.valueOf(userName));
+                declaracionPreparada.setString(2, String.valueOf(inicio));
+                declaracionPreparada.setString(3, String.valueOf(fin));
+            }
+
+            if (inicio != null && fin == null) {
+                declaracionPreparada = getConeccion().prepareStatement(ST_COMENTARIO + ST_WHERE + ST_COMENTARIOS_EDITOR + ST_AND + ST_FECHA_INICIO + ST_AND + ST_NOT_NULL + re);
+                declaracionPreparada.setString(1, String.valueOf(userName));
+                declaracionPreparada.setString(2, String.valueOf(inicio));
+            }
+            if (inicio == null && fin != null) {
+                declaracionPreparada = getConeccion().prepareStatement(ST_COMENTARIO + ST_WHERE + ST_COMENTARIOS_EDITOR + ST_AND + ST_FECHA_FINAL + ST_AND + ST_NOT_NULL + re);
+                declaracionPreparada.setString(1, String.valueOf(userName));
+                declaracionPreparada.setString(2, String.valueOf(fin));
+                
+
+            }
+            resultado2 = declaracionPreparada.executeQuery();
+            Controlador co = new Controlador();
+            while (resultado2.next()) {
+                String[] s = new String[4];
+                s[0] = resultado2.getString("CodigoRevista");
+                s[1] = resultado2.getString("Nombre");
+                s[2] = resultado2.getString("Comentario");
+                s[3] = resultado2.getString("UserName");
+                comentarios.add(s);
+            }
+
+        } catch (NumberFormatException | SQLException e) {
+        }
+        return comentarios;
+    }
+
+    public ArrayList<String[]> obtenerSuscripcion(LocalDate inicio, LocalDate fin, String userName, String codigoRevista) {
+        ArrayList<String[]> sucripciones = new ArrayList<>();
+        String re = "";
+        if (codigoRevista != null) {
+            re = ST_AND + ST_REVISTA_EDITOR;
+            re = re.replace("?", "'" + codigoRevista + "'");
+        }
+        try {
+            if (getConeccion() == null) {
+                setConeccion();
+            }
+            ResultSet resultado2 = null;
+            PreparedStatement declaracionPreparada = null;
+            if (inicio == null && fin == null) {
+                declaracionPreparada = getConeccion().prepareStatement(ST_SUSCRIPCION + ST_WHERE + ST_COMENTARIOS_EDITOR + re);
+                declaracionPreparada.setString(1, String.valueOf(userName));
+            }
+            if (inicio != null && fin != null) {
+                declaracionPreparada = getConeccion().prepareStatement(ST_SUSCRIPCION + ST_WHERE + ST_COMENTARIOS_EDITOR + ST_AND + ST_FECHA_INICIO + ST_AND + ST_FECHA_FINAL + re);
+                declaracionPreparada.setString(1, String.valueOf(userName));
+                declaracionPreparada.setString(2, String.valueOf(inicio));
+                declaracionPreparada.setString(3, String.valueOf(fin));
+            }
+
+            if (inicio != null && fin == null) {
+                declaracionPreparada = getConeccion().prepareStatement(ST_SUSCRIPCION + ST_WHERE + ST_COMENTARIOS_EDITOR + ST_AND + ST_FECHA_INICIO + re);
+                declaracionPreparada.setString(1, String.valueOf(userName));
+                declaracionPreparada.setString(2, String.valueOf(inicio));
+            }
+            if (inicio == null && fin != null) {
+                declaracionPreparada = getConeccion().prepareStatement(ST_SUSCRIPCION + ST_WHERE + ST_COMENTARIOS_EDITOR + ST_AND + ST_FECHA_FINAL + re);
+                declaracionPreparada.setString(1, String.valueOf(userName));
+                declaracionPreparada.setString(2, String.valueOf(fin));
+
+            }
+            resultado2 = declaracionPreparada.executeQuery();
+            while (resultado2.next()) {
+                String[] s = new String[4];
+                s[0] = resultado2.getString("CodigoRevista");
+                s[1] = resultado2.getString("Nombre");
+                s[2] = resultado2.getString("UserName");
+                sucripciones.add(s);
+            }
+
+        } catch (NumberFormatException | SQLException e) {
+            System.out.println("Error al Obtener Suscripciones");
+        }
+        return sucripciones;
+    }
 
     public ArrayList<Revista> obtenerGanancias(LocalDate inicio, LocalDate fin, String CodigoRevista) {
         ArrayList<Suscripcion> suscripciones = new ArrayList<Suscripcion>();
@@ -163,7 +330,7 @@ public class ControlReportes extends Coneccion {
             }
             ResultSet resultado2 = null;
             if (inicio == null && fin == null) {
-                PreparedStatement declaracionPreparada = getConeccion().prepareStatement(ST_COMENTARIO + ST_AND + ST_NOT_NULL);
+                PreparedStatement declaracionPreparada = getConeccion().prepareStatement(ST_COMENTARIO + ST_WHERE + ST_NOT_NULL);
                 resultado2 = declaracionPreparada.executeQuery();
             }
             if (inicio != null && fin != null) {
@@ -189,17 +356,13 @@ public class ControlReportes extends Coneccion {
                         null);
                 com.setCodigoRevista(resultado2.getString("CodigoRevista"));
                 com.setNombreRevista(resultado2.getString("Nombre"));
-                System.out.println("come");
                 comentarios.add(com);
             }
             for (int j = 0; j < comentarios.size(); j++) {
-                System.out.println(comentarios.size());
                 boolean aux = true;
-                System.out.println(revistas.size());
                 for (int k = 0; k < revistas.size(); k++) {
                     if (revistas.get(k).getCodigo().equals(comentarios.get(j).getCodigoRevista())) {
                         revistas.get(k).addComentario(comentarios.get(j));
-                        System.out.println("rep");
                         aux = false;
                         break;
                     }
@@ -214,7 +377,6 @@ public class ControlReportes extends Coneccion {
 
         } catch (NumberFormatException | SQLException e) {
         }
-
         return ordenar(revistas, 2);
     }
 
@@ -228,16 +390,22 @@ public class ControlReportes extends Coneccion {
                 menor = revistasOg.get(i); // de los elementos que quedan por ordenar
                 pos = i; // y guardamos su posición
                 for (int j = i + 1; j < revistasOg.size(); j++) { // buscamos en el resto
-                    if (tipo == 1) {
-                        if (revistasOg.get(j).getSuscripcions().size() > menor.getSuscripcions().size()) { // del array algún elemento
-                            menor = revistasOg.get(j); // menor que el actual
-                            pos = j;
-                        }
-                    } else {
-                        if (revistasOg.get(j).getComentario().size() > menor.getComentario().size()) { // del array algún elemento
-                            menor = revistasOg.get(j); // menor que el actual
-                            pos = j;
-                        }
+                    switch (tipo) {
+                        case 1:
+                            if (revistasOg.get(j).getSuscripcions().size() > menor.getSuscripcions().size()) { // del array algún elemento
+                                menor = revistasOg.get(j); // menor que el actual
+                                pos = j;
+                            }   break;
+                        case 2:
+                            if (revistasOg.get(j).getComentarios().size() > menor.getComentarios().size()) { // del array algún elemento
+                                menor = revistasOg.get(j); // menor que el actual
+                                pos = j;
+                            }   break;
+                        default:
+                            if (revistasOg.get(j).getLike().size() > menor.getLike().size()) { // del array algún elemento
+                                menor = revistasOg.get(j); // menor que el actual
+                                pos = j; 
+                            }   break;
                     }
 
                 }
@@ -253,7 +421,6 @@ public class ControlReportes extends Coneccion {
             if (revistasOg.get(i) != null) {
 
                 revOrdenadas.add(revistasOg.get(i));
-                System.out.println("s");
             }
 
         }
