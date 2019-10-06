@@ -62,5 +62,14 @@ public class Suscripcion {
     public void setNombreRevista(String nombreRevista) {
         this.nombreRevista = nombreRevista;
     }
-    
+    public float getIngresos() {
+        float ingresos = 0;
+        for (int i = 0; i < pagos.size(); i++) {
+            ingresos=ingresos+pagos.get(i).getCantidad();
+            
+        }
+        return ingresos;
+    }
+
+
 }

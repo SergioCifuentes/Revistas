@@ -24,13 +24,74 @@ public class ControlReportes extends Coneccion {
 
     private final static String ST_SUSCRIPCION = " SELECT CodigoRevista,Nombre,s.UserName,s.Codigo AS CodigoSuscripcion,s.Fecha "
             + "FROM Suscripcion s JOIN Revista r ON s.CodigoRevista=r.Codigo ";
-
+    private final static String ST_PORCENTAJE_SISTEMA = "SELECT PorcentajeSistema FROM PreciosAdmin";
     private final static String ST_COMENTARIO = " SELECT CodigoRevista,Nombre,Comentario,s.UserName  From Reaccion s Join Revista r On s.CodigoRevista=r.Codigo ";
+     private final static String ST_PAGOS = " SELECT CodigoRevista,Nombre,Comentario,s.UserName  From Reaccion s Join Revista r On s.CodigoRevista=r.Codigo ";
     private final static String ST_NOT_NULL = " Comentario != 'Null'";
     private final static String ST_WHERE = " WHERE ";
     private final static String ST_FECHA_INICIO = " s.Fecha> ? ";
     private final static String ST_AND = " AND ";
     private final static String ST_FECHA_FINAL = " s.Fecha< ? ";
+
+    public ArrayList<Revista> obtenerGanancias(LocalDate inicio, LocalDate fin, String CodigoRevista) {
+        ArrayList<Suscripcion> suscripciones = new ArrayList<Suscripcion>();
+        ArrayList<Revista> revistas = new ArrayList<>();
+        try {
+            if (getConeccion() == null) {
+                setConeccion();
+            }
+            ResultSet resultado2 = null;
+            if (inicio == null && fin == null) {
+                PreparedStatement declaracionPreparada = getConeccion().prepareStatement(ST_SUSCRIPCION);
+                resultado2 = declaracionPreparada.executeQuery();
+            }
+            if (inicio != null && fin != null) {
+                PreparedStatement declaracionPreparada = getConeccion().prepareStatement(ST_SUSCRIPCION + ST_WHERE + ST_FECHA_INICIO + ST_AND + ST_FECHA_FINAL);
+                declaracionPreparada.setString(1, String.valueOf(inicio));
+                declaracionPreparada.setString(2, String.valueOf(fin));
+                resultado2 = declaracionPreparada.executeQuery();
+            }
+
+            if (inicio != null && fin == null) {
+                PreparedStatement declaracionPreparada = getConeccion().prepareStatement(ST_SUSCRIPCION + ST_WHERE + ST_FECHA_INICIO);
+                declaracionPreparada.setString(1, String.valueOf(inicio));
+                resultado2 = declaracionPreparada.executeQuery();
+            }
+            if (inicio == null && fin != null) {
+                PreparedStatement declaracionPreparada = getConeccion().prepareStatement(ST_SUSCRIPCION + ST_WHERE + ST_FECHA_FINAL);
+                declaracionPreparada.setString(1, String.valueOf(fin));
+                resultado2 = declaracionPreparada.executeQuery();
+            }
+            Controlador co = new Controlador();
+            while (resultado2.next()) {
+                Suscripcion su = new Suscripcion(co.obtnerPagosPorCodigo(resultado2.getString("CodigoSuscripcion")), resultado2.getObject("Fecha", LocalDate.class),
+                        (Usuario) co.obtenerUsuario(resultado2.getString("UserName")));
+                su.setCodigoRevista(resultado2.getString("CodigoRevista"));
+                su.setNombreRevista(resultado2.getString("Nombre"));
+                suscripciones.add(su);
+            }
+            for (int j = 0; j < suscripciones.size(); j++) {
+                boolean aux = true;
+                for (int k = 0; k < revistas.size(); k++) {
+                    if (revistas.get(k).getCodigo().equals(suscripciones.get(j).getCodigoRevista())) {
+                        revistas.get(k).addSuscripcions(suscripciones.get(j));
+                        aux = false;
+                        break;
+                    }
+
+                }
+                if (aux) {
+                    Revista rev = new Revista(suscripciones.get(j).getCodigoRevista(), suscripciones.get(j).getNombreRevista());
+                    rev.addSuscripcion(suscripciones.get(j));
+                    revistas.add(rev);
+                }
+
+            }
+
+        } catch (NumberFormatException | SQLException e) {
+        }
+        return revistas;
+    }
 
     public ArrayList<Revista> obtenerMasSuscritos(LocalDate inicio, LocalDate fin) {
         ArrayList<Suscripcion> suscripciones = new ArrayList<Suscripcion>();
@@ -102,30 +163,30 @@ public class ControlReportes extends Coneccion {
             }
             ResultSet resultado2 = null;
             if (inicio == null && fin == null) {
-                PreparedStatement declaracionPreparada = getConeccion().prepareStatement(ST_COMENTARIO+ST_AND+ST_NOT_NULL);
+                PreparedStatement declaracionPreparada = getConeccion().prepareStatement(ST_COMENTARIO + ST_AND + ST_NOT_NULL);
                 resultado2 = declaracionPreparada.executeQuery();
             }
             if (inicio != null && fin != null) {
-                PreparedStatement declaracionPreparada = getConeccion().prepareStatement(ST_COMENTARIO + ST_WHERE + ST_FECHA_INICIO + ST_AND + ST_FECHA_FINAL+ST_AND+ST_NOT_NULL);
+                PreparedStatement declaracionPreparada = getConeccion().prepareStatement(ST_COMENTARIO + ST_WHERE + ST_FECHA_INICIO + ST_AND + ST_FECHA_FINAL + ST_AND + ST_NOT_NULL);
                 declaracionPreparada.setString(1, String.valueOf(inicio));
                 declaracionPreparada.setString(2, String.valueOf(fin));
                 resultado2 = declaracionPreparada.executeQuery();
             }
 
             if (inicio != null && fin == null) {
-                PreparedStatement declaracionPreparada = getConeccion().prepareStatement(ST_COMENTARIO + ST_WHERE + ST_FECHA_INICIO+ST_AND+ST_NOT_NULL);
+                PreparedStatement declaracionPreparada = getConeccion().prepareStatement(ST_COMENTARIO + ST_WHERE + ST_FECHA_INICIO + ST_AND + ST_NOT_NULL);
                 declaracionPreparada.setString(1, String.valueOf(inicio));
                 resultado2 = declaracionPreparada.executeQuery();
             }
             if (inicio == null && fin != null) {
-                PreparedStatement declaracionPreparada = getConeccion().prepareStatement(ST_COMENTARIO + ST_WHERE + ST_FECHA_FINAL+ST_AND+ST_NOT_NULL);
+                PreparedStatement declaracionPreparada = getConeccion().prepareStatement(ST_COMENTARIO + ST_WHERE + ST_FECHA_FINAL + ST_AND + ST_NOT_NULL);
                 declaracionPreparada.setString(1, String.valueOf(fin));
                 resultado2 = declaracionPreparada.executeQuery();
             }
             Controlador co = new Controlador();
             while (resultado2.next()) {
                 Comentario com = new Comentario(co.obtenerUsuario(resultado2.getString("UserName")).getUserName(), resultado2.getString("Comentario"),
-                         null);
+                        null);
                 com.setCodigoRevista(resultado2.getString("CodigoRevista"));
                 com.setNombreRevista(resultado2.getString("Nombre"));
                 System.out.println("come");
@@ -190,7 +251,7 @@ public class ControlReportes extends Coneccion {
 
         for (int i = 0; (i < 5 && i < revistasOg.size()); i++) {
             if (revistasOg.get(i) != null) {
-                
+
                 revOrdenadas.add(revistasOg.get(i));
                 System.out.println("s");
             }
@@ -198,4 +259,22 @@ public class ControlReportes extends Coneccion {
         }
         return revOrdenadas;
     }
+
+    public float obtenerPorcentajeDelSistema() {
+        float porcentaje = 0;
+        try {
+            if (getConeccion() == null) {
+                setConeccion();
+            }
+            ResultSet resultado2 = null;
+            PreparedStatement declaracionPreparada = getConeccion().prepareStatement(ST_PORCENTAJE_SISTEMA);
+            resultado2 = declaracionPreparada.executeQuery();
+            if (resultado2.next()) {
+                porcentaje = resultado2.getFloat("PorcentajeSistema");
+            }
+        } catch (SQLException e) {
+        }
+        return porcentaje;
+    }
+
 }

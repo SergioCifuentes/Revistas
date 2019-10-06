@@ -8,6 +8,7 @@ package ControladorDB;
 import Ingresos.Pago;
 import Ingresos.Suscripcion;
 import Revista.Categoria;
+import Revista.Costos;
 import Revista.Edicion;
 import Revista.Reaccion;
 import Revista.Revista;
@@ -62,6 +63,7 @@ public class Controlador extends Coneccion {
     private final static String ST_OBTENER_PDF_POR_CODIGO = "SELECT Archivo FROM Edicion WHERE CodigoRevista = ? AND NumeroEd = ?";
     private final static String ST_OBTENER_EDICIONES = "SELECT * FROM Edicion WHERE CodigoRevista = ?";
     private final static String ST_OBTENER_REACCIONES = "SELECT * FROM Reaccion WHERE CodigoRevista = ?";
+    private final static String ST_OBTENER_COSTOS = "SELECT * FROM CostosRevistas WHERE CodigoRevista = ?";
 
     public boolean verificarUserName(String userName) {
         PreparedStatement declaracionPreparada = null;
@@ -448,6 +450,25 @@ public class Controlador extends Coneccion {
         }
         return reaccions;
     }
+    
+        public ArrayList<Costos> obtnerCostos(String codigoRevista) {
+        ArrayList<Costos> costos = new ArrayList<>();
+        try {
+
+            if (getConeccion() == null) {
+                setConeccion();
+            }
+            PreparedStatement declaracionPreparada = getConeccion().prepareStatement(ST_OBTENER_COSTOS);
+            declaracionPreparada.setString(1, codigoRevista);
+            ResultSet resultado2 = declaracionPreparada.executeQuery();
+            while (resultado2.next()) {
+                costos.add(new Costos(resultado2.getFloat("CostoPorDia"), resultado2.getObject("Fecha", LocalDate.class)));
+                        }
+
+        } catch (Exception e) {
+        }
+        return costos;
+    }
 
     public void pdf(String codigoRevista, String numeroEd, HttpServletResponse response) {
         byte[] b = null;
@@ -508,6 +529,7 @@ public class Controlador extends Coneccion {
                         resultado2.getInt("Estado"), resultado2.getBoolean("Comentarios"), resultado2.getBoolean("Suscripciones"), resultado2.getString("Descripcion")));
                 nuevaRevista.setEdiciones(obtnerEdiciones(nuevaRevista));
                 nuevaRevista.setReaccions(obtnerReacciones(codigo));
+                nuevaRevista.setCostos(obtnerCostos(codigo));
                 nuevaRevista.setSuscripcions(obtnerSuscripcionPorCodigo(codigo));
                 revistas = nuevaRevista;
             }

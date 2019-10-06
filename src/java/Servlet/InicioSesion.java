@@ -36,6 +36,7 @@ public class InicioSesion extends HttpServlet {
                 nuevoSession.setAttribute("Usuario", usuario);
             if (usuario!=null) {
                 request.setAttribute("Usuario",usuario);
+                
                try {
                      Administrador admin = (Administrador)usuario;
                     request.setAttribute("Ganancias",true);

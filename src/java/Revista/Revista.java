@@ -7,6 +7,7 @@ package Revista;
 
 import Ingresos.Suscripcion;
 import Usuarios.Editador;
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 /**
@@ -160,5 +161,74 @@ public class Revista {
         }
         return likes;
     }
+    public float getIngresos(LocalDate inicio,LocalDate fin) {
+         LocalDate auxI;
+        LocalDate auxF;
+        if (inicio==null) {
+            auxI=costos.get(0).getFecha();
+        }else{
+        if (inicio.isBefore(costos.get(0).getFecha())) {
+            auxI=costos.get(0).getFecha();
+        }else{
+            auxI=inicio;
+        }}
+        if (fin==null) {
+            auxF=LocalDate.now();
+        }else{
+             if (fin.isBefore(LocalDate.now())) {
+            auxF=fin;
+        }else{
+            auxF=LocalDate.now();
+        }
+        }
+        float ingresos=0;
+        for (int i = 0; i < suscripcions.size(); i++) {
+            for (int j = 0; j < suscripcions.get(i).getPagos().size(); j++) {
+                if (suscripcions.get(i).getPagos().get(j).getFecha().isBefore(auxF)&&
+                        suscripcions.get(i).getPagos().get(j).getFecha().isAfter(auxI)) {
+                    ingresos= ingresos+suscripcions.get(i).getPagos().get(j).getCantidad();
+                }
+                
+            }
+            
+            
+        }
+        return ingresos;
+    }
+
+    public void setCostos(ArrayList<Costos> costos) {
+        this.costos = costos;
+    }
+
+    public float getPerdida(LocalDate inicio,LocalDate fin) {
+        LocalDate auxI;
+        LocalDate auxF;
+        if (inicio==null) {
+            System.out.println(costos.get(0)+"cos");
+            auxI=costos.get(0).getFecha();
+        }else{
+        if (inicio.isBefore(costos.get(0).getFecha())) {
+            auxI=costos.get(0).getFecha();
+        }else{
+            auxI=inicio;
+        }}
+        if (fin==null) {
+            auxF=LocalDate.now();
+        }else{
+             if (fin.isBefore(LocalDate.now())) {
+            auxF=fin;
+        }else{
+            auxF=LocalDate.now();
+        }
+        }
+       
+        int dias=0;
+        while (auxI.isBefore(auxF)) {            
+            auxI= auxI.plusDays(1);
+            dias++;
+        }
+        return dias*costos.get(0).getCosto();
+    }
+
 
 }
