@@ -62,6 +62,7 @@ public class Controlador extends Coneccion {
     private final static String ST_OBTENER_SUSCRIPCIONES_POR_USER = "SELECT * FROM Suscripcion WHERE UserName=?";
     private final static String ST_OBTENER_PDF_POR_CODIGO = "SELECT Archivo FROM Edicion WHERE CodigoRevista = ? AND NumeroEd = ?";
     private final static String ST_OBTENER_EDICIONES = "SELECT * FROM Edicion WHERE CodigoRevista = ?";
+    private final static String ST_OBTENER_REACCION = "SELECT * FROM Reaccion";
     private final static String ST_OBTENER_REACCIONES = "SELECT * FROM Reaccion WHERE CodigoRevista = ?";
     private final static String ST_OBTENER_COSTOS = "SELECT * FROM CostosRevistas WHERE CodigoRevista = ?";
 
@@ -308,7 +309,23 @@ public class Controlador extends Coneccion {
         }
         return codigos;
     }
-
+    
+        public ArrayList obtenerCodigoReaccion() {
+        ArrayList codigos = new ArrayList();
+        try {
+            if (getConeccion() == null) {
+                setConeccion();
+            }
+            PreparedStatement declaracionPreparada = getConeccion().prepareStatement(ST_OBTENER_REACCION);
+            ResultSet resultado2 = declaracionPreparada.executeQuery();
+            while (resultado2.next()) {
+                codigos.add(resultado2.getString("Codigo"));
+            }
+        } catch (SQLException e) {
+            System.out.println("Error SQL");
+        }
+        return codigos;
+    }
     public ArrayList obtenerCodigoDeSuscripcion() {
         ArrayList codigos = new ArrayList();
         try {

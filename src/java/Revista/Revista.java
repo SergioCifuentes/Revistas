@@ -171,6 +171,16 @@ public class Revista {
         }
         return likes;
     }
+    public boolean verificarLike(String userName){
+        boolean verificacion = false;
+        for (int i = 0; i < reaccions.size(); i++) {
+            if (reaccions.get(i).getSuscriptor().getUserName().equals(userName)&&reaccions.get(i).isLike()) {
+                verificacion=true;
+            }
+            
+        }
+        return verificacion;
+    }
     public float getIngresos(LocalDate inicio,LocalDate fin) {
          LocalDate auxI;
         LocalDate auxF;

@@ -16,6 +16,7 @@ public class GeneradorDeCodigos {
     private static final String ID_REVISTA = "R";
     private static final String ID_SUSCRIPCION = "S";
     private static final String ID_PAGO = "P";
+    private static final String ID_REACCION = "RC";
 
     public static String generarCodigoRevista() {
         String codigo = "100";
@@ -30,7 +31,18 @@ public class GeneradorDeCodigos {
 
         return ID_REVISTA + codigo;
     }
-
+    
+    
+        public static String generarCodigoReaccion() {
+        String codigo = "100";
+        Controlador co = new Controlador();
+        if (co.obtenerCodigoReaccion() != null) {
+            codigo = String.valueOf(Integer.valueOf(codigo) + co.obtenerCodigoReaccion().size());
+        }
+        return ID_REACCION + codigo;
+    }
+        
+        
     public static String generarCodigoSuscripcion() {
         String codigo = "100";
         Controlador co = new Controlador();

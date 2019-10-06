@@ -5,8 +5,14 @@
  */
 package Servlet;
 
+import ControladorDB.Controlador;
+import ControladorDB.Controlador2;
+import Revista.Comentario;
+import Revista.Reaccion;
+import Usuarios.Suscriptor;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.time.LocalDate;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -35,7 +41,7 @@ public class Comentar extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet Comentar</title>");            
+            out.println("<title>Servlet Comentar</title>");
             out.println("</head>");
             out.println("<body>");
             out.println("<h1>Servlet Comentar at " + request.getContextPath() + "</h1>");
@@ -70,7 +76,26 @@ public class Comentar extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        System.out.println("comentooooooo");
+        Controlador2 co = new Controlador2();
+        Controlador co2 = new Controlador();
+        if (request.getParameter("Like") != null) {
+            Reaccion reaccion=null;
+            if ("DisLike".equals(request.getParameter("DisLike"))) {
+                 reaccion = new Reaccion((Suscriptor) request.getSession().getAttribute("Usuario"),true, null, LocalDate.now());
+            } else if ("Like".equals(request.getParameter("DisLike"))) {
+                 reaccion = new Reaccion((Suscriptor) request.getSession().getAttribute("Usuario"),false, null, LocalDate.now());
+            }
+            co.guardarLike(reaccion, request.getParameter("Revis"));
+            getServletContext().getRequestDispatcher("/AreaSuscriptor/Home.jsp").forward(request, response);
+        }
+        
+        
+        if (request.getParameter("Comentar") != null) {
+            Comentario comentario = new Comentario(((Suscriptor) request.getSession().getAttribute("Usuario")).getUserName()
+                    ,String.valueOf(request.getParameter("comentario")), LocalDate.now());
+            co.guardarComentario(comentario, request.getParameter("Revis"));
+            getServletContext().getRequestDispatcher("/AreaSuscriptor/Home.jsp").forward(request, response);
+        }
     }
 
     /**

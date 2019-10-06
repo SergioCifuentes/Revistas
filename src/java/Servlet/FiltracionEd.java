@@ -105,7 +105,7 @@ public class FiltracionEd extends HttpServlet {
             RequestDispatcher dispatcher = request.getRequestDispatcher("/AreaEditor/Reportes.jsp");
             dispatcher.forward(request, response);
         }
-        if ("Recetear".equals(request.getParameter("RecetearC"))) {
+        if ("Resetear".equals(request.getParameter("RecetearC"))) {
             request.setAttribute("comentarios", true);
             request.setAttribute("Ganancias", false);
             RequestDispatcher dispatcher = request.getRequestDispatcher("/AreaEditor/Reportes.jsp");
@@ -142,7 +142,7 @@ public class FiltracionEd extends HttpServlet {
             RequestDispatcher dispatcher = request.getRequestDispatcher("/AreaEditor/Reportes.jsp");
             dispatcher.forward(request, response);
         }
-        if ("Recetear".equals(request.getParameter("RecetearS"))) {
+        if ("Resetear".equals(request.getParameter("RecetearS"))) {
             request.setAttribute("Suscripciones", true);
             request.setAttribute("Ganancias", false);
             RequestDispatcher dispatcher = request.getRequestDispatcher("/AreaEditor/Reportes.jsp");
@@ -150,7 +150,7 @@ public class FiltracionEd extends HttpServlet {
             dispatcher.forward(request, response);
         }
 
-        if ("Recetear".equals(request.getParameter("RecetearG"))) {
+        if ("Resetear".equals(request.getParameter("RecetearG"))) {
             request.setAttribute("comentarios", false);
             request.setAttribute("Ganancias", true);
             RequestDispatcher dispatcher = request.getRequestDispatcher("/AreaEditor/Reportes.jsp");
@@ -190,7 +190,7 @@ public class FiltracionEd extends HttpServlet {
         
         
         
-        if ("Recetear".equals(request.getParameter("RecetearL"))) {
+        if ("Resetear".equals(request.getParameter("RecetearL"))) {
             request.setAttribute("comentarios", false);
             request.setAttribute("Ganancias", false);
             request.setAttribute("Likes", true);

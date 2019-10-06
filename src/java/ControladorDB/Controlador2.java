@@ -7,9 +7,11 @@ package ControladorDB;
 
 import Ingresos.Pago;
 import Ingresos.Suscripcion;
+import Revista.Comentario;
 import Revista.Costos;
 import Revista.Edicion;
 import Revista.GeneradorDeCodigos;
+import Revista.Reaccion;
 import Revista.Revista;
 import Usuarios.Usuario;
 import java.sql.PreparedStatement;
@@ -35,6 +37,56 @@ public class Controlador2 extends Coneccion {
     private final static String ST_OBTENER_SUSCRIPCION_POR_USERNAME_REVISTA = "SELECT Codigo FROM Suscripcion WHERE UserName=? AND CodigoRevista=?";
     private final static String ST_OBTENER_REVISTAS_POR_ESTADO = "SELECT Codigo FROM Revista WHERE Estado=?";
     private final static String ST_OBTENER_PRECIOS_ADMIN = "SELECT * FROM PreciosAdmin";
+    private final static String ST_CREAR_REACCION = "INSERT INTO Reaccion VALUES(?,?,?,?,?,?)";
+    private final static String ST_UPDATE_DIS_LIKE = "UPDATE Reaccion SET Likes = ? WHERE UserName =? AND CodigoRevista=?";
+
+    public void guardarLike(Reaccion reaccion, String codigoRevista) {
+        try {
+            if (getConeccion() == null) {
+                setConeccion();
+            }
+
+            if (reaccion.isLike()) {
+                PreparedStatement declaracionPreparada2 = getConeccion().prepareStatement(ST_CREAR_REACCION);
+                String codigo = GeneradorDeCodigos.generarCodigoReaccion();
+                declaracionPreparada2.setString(1, codigo);
+                declaracionPreparada2.setString(2, codigoRevista);
+                declaracionPreparada2.setString(3, reaccion.getSuscriptor().getUserName());
+                declaracionPreparada2.setString(4, String.valueOf(reaccion.getFecha()));
+                declaracionPreparada2.setString(5, String.valueOf(1));
+                declaracionPreparada2.setString(6,reaccion.getComentario());
+                declaracionPreparada2.executeUpdate();
+            } else {
+                PreparedStatement declaracionPreparada2 = getConeccion().prepareStatement(ST_UPDATE_DIS_LIKE);
+                declaracionPreparada2.setString(1, String.valueOf(0));
+                declaracionPreparada2.setString(2, reaccion.getSuscriptor().getUserName());
+                declaracionPreparada2.setString(3, codigoRevista);
+                System.out.println(declaracionPreparada2);
+                declaracionPreparada2.executeUpdate();
+            }
+        } catch (Exception e) {
+        }
+
+    }
+        public void guardarComentario(Comentario comentario, String codigoRevista) {
+        try {
+            if (getConeccion() == null) {
+                setConeccion();
+            }            
+                PreparedStatement declaracionPreparada2 = getConeccion().prepareStatement(ST_CREAR_REACCION);
+                String codigo = GeneradorDeCodigos.generarCodigoReaccion();
+                declaracionPreparada2.setString(1, codigo);
+                declaracionPreparada2.setString(2, codigoRevista);
+                declaracionPreparada2.setString(3, comentario.getUserName());
+                declaracionPreparada2.setString(4, String.valueOf(comentario.getFecha()));
+                declaracionPreparada2.setString(5, String.valueOf(0));
+                declaracionPreparada2.setString(6,comentario.getComentario());
+                declaracionPreparada2.executeUpdate();
+            
+        } catch (Exception e) {
+        }
+
+    }
 
     public void guardarSuscripcion(Suscripcion suscripcion, String codigoRevista) {
         try {
@@ -76,7 +128,8 @@ public class Controlador2 extends Coneccion {
             Logger.getLogger(Controlador.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    public String obtnerCodigoSuscripcion(String userName,String codigoRevista) {
+
+    public String obtnerCodigoSuscripcion(String userName, String codigoRevista) {
         String suscripcion = null;
         try {
 
@@ -95,6 +148,7 @@ public class Controlador2 extends Coneccion {
         }
         return suscripcion;
     }
+
     public ArrayList<Suscripcion> obtnerSuscripcionPorUser(String userName) {
         ArrayList<Suscripcion> suscripciones = new ArrayList<Suscripcion>();
         try {
@@ -183,8 +237,9 @@ public class Controlador2 extends Coneccion {
             Logger.getLogger(Controlador.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    public Costos obtenerPrecioGlobal(){
-        Costos costo=null;
+
+    public Costos obtenerPrecioGlobal() {
+        Costos costo = null;
         try {
             if (getConeccion() == null) {
                 setConeccion();
@@ -192,7 +247,7 @@ public class Controlador2 extends Coneccion {
             PreparedStatement declaracionPreparada = getConeccion().prepareStatement(ST_OBTENER_PRECIOS_ADMIN);
             ResultSet resultado2 = declaracionPreparada.executeQuery();
             while (resultado2.next()) {
-                costo=new Costos(resultado2.getFloat("CostoPorDiaGlobal"),resultado2.getObject("Fecha",LocalDate.class));
+                costo = new Costos(resultado2.getFloat("CostoPorDiaGlobal"), resultado2.getObject("Fecha", LocalDate.class));
             }
         } catch (NumberFormatException | SQLException e) {
         }

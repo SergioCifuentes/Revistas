@@ -101,7 +101,7 @@ public class Filtracion extends HttpServlet {
 
 //            getServletContext().getRequestDispatcher("/AreaEditor/Reportes.jsp").forward(request, response);
         }
-        if ("Recetear".equals(request.getParameter("RecetearS"))) {
+        if ("Resetear".equals(request.getParameter("RecetearS"))) {
             request.setAttribute("Suscritos", true);
             request.setAttribute("Ganancias", false);
 
@@ -135,7 +135,7 @@ public class Filtracion extends HttpServlet {
 
 //            getServletContext().getRequestDispatcher("/AreaEditor/Reportes.jsp").forward(request, response);
         }
-        if ("Recetear".equals(request.getParameter("RecetearC"))) {
+        if ("Resetear".equals(request.getParameter("RecetearC"))) {
             request.setAttribute("Suscritos", false);
             request.setAttribute("Comentarios", true);
             request.setAttribute("Ganancias", false);
@@ -143,7 +143,7 @@ public class Filtracion extends HttpServlet {
 
             dispatcher.forward(request, response);
         }
-        if ("Recetear".equals(request.getParameter("RecetearG"))) {
+        if ("Resetear".equals(request.getParameter("RecetearG"))) {
             request.setAttribute("Suscritos", false);
             request.setAttribute("Comentarios", false);
             request.setAttribute("Ganancias", true);

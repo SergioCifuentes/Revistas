@@ -26,7 +26,7 @@
             </div>
         </select>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
         Inicio: <input name="inicio"type="date" value="<%=request.getAttribute("inicioS")%>"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  Final <input name="fin" value="<%=request.getAttribute("finS")%>"type="date">  &nbsp;&nbsp;<input class="btn btn-light" type="submit" value="Filtrar" name="FiltrarS">
-        &nbsp;<input class="btn btn-light" type="submit" value="Recetear" name="RecetearS">
+        &nbsp;<input class="btn btn-light" type="submit" value="Resetear" name="RecetearS">
     </form>
         </div>
 <br>

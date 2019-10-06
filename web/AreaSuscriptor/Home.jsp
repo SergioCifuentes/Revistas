@@ -49,10 +49,11 @@
                     <h5 class="card-title">Autor:  <a href="/Revistas/BuscarAutor?autor=<%=rev.get(i).getAutor().getUserName()%> "><%=rev.get(i).getAutor().getUserName()%> </a></h5>
                     <p class="card-text"><%=rev.get(i).getDescripcion()%></p>
                     <p>
-                    <form method="post">
-                        <input type="submit" class="btn btn-secondary" id="likes" data-toggle="collapse" href="#collapseComentarios<%=i%>" role="button" aria-expanded="false" aria-controls="collapseExample"
-                               value="<%=rev.get(i).getLikes()%> Likes"
-                               >
+                    <form method="post" action="/Revistas/Comentar">
+                        <input hidden="true" name="DisLike" value="<%if (rev.get(i).verificarLike(persona.getUserName())) {%>Like<% } else {%>DisLike<%}%>">
+                        <input hidden="true" value="<%=rev.get(i).getCodigo()%>" name="Revis">
+                        <input type="submit" class="<%if (rev.get(i).verificarLike(persona.getUserName())) {%> btn btn-primary
+                               <% } else {%>btn btn-secondary <%}%>" name="Like" id="likes"value="<%=rev.get(i).getLikes()%> Likes">&nbsp;&nbsp;
                         <a class="btn btn-secondary" data-toggle="collapse" href="#collapseComentarios<%=i%>" role="button" aria-expanded="false" aria-controls="collapseExample">
                             Comentarios
                         </a>
@@ -94,10 +95,12 @@
                         </p>
                         <%
                             }%>
-                        
-                        <form method="post" onsubmit=";">
+
+                        <form method="post" action="/Revistas/Comentar">
+                            <input hidden="true" value="<%=rev.get(i).getCodigo()%>" name="Revis">
+
                             <input type="text" placeholder="Que piensas sobre la Revista?" style="width: 30%" id="comentario" name="comentario">
-                            <input type="button" onclick="return guardarComentario()" name="Comentar" class="btn btn-primary" value="Comentar">
+                            <input type="submit" name="Comentar" class="btn btn-primary" value="Comentar">
                         </form>
                         <br>
                     </div>
